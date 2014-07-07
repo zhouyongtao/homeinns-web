@@ -17,25 +17,21 @@ out
 dependency-reduced-pom.xml
 
 # Eclipse Project Files
-
 .classpath
 .project
 .settings/
 
 # IntelliJ IDEA Files
-
 *.iml
 *.ipr
 *.iws
 *.idea
-
 
 #Log
 .project
 /log
 .base_IS_UNDEFINED
 /test-output/
-
 
 #NodeJS
 node_modules
