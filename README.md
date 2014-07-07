@@ -5,7 +5,7 @@ homeinns-web
 ---------------
         开发环境: IntelliJ IDEA+ JDK1.8
         
-### 1. Maven构建SpringMVC基础架构
+#### 1. Maven构建SpringMVC基础架构
 
 
 
