@@ -9,11 +9,11 @@ Thumbs.db
 *.sublime-*
 
 # Build Artifacts
-
 .gradle/
 build/
 target/
 bin/
+out
 dependency-reduced-pom.xml
 
 # Eclipse Project Files
@@ -36,13 +36,8 @@ dependency-reduced-pom.xml
 .base_IS_UNDEFINED
 /test-output/
 
-#maven
-out
-target
-
 
 #NodeJS
 node_modules
 /logs
 README.html
-
