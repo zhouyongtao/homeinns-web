@@ -35,7 +35,11 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <!-- 防止spring内存溢出监听器 -->
     <listener>
@@ -47,6 +51,6 @@
     </listener>
     <!-- 首页 -->
     <welcome-file-list>
-        <welcome-file>index</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
 </web-app>

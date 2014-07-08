@@ -12,14 +12,14 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-        <!-- 配置JSP视图解析  -->
-        <bean id="viewResolver"
-              class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-            <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-            <property name="prefix" value="/WEB-INF/view/"/>
-            <property name="suffix" value=".jsp"/>
-            <property name="order" value="1"/>
-        </bean>
-       <!-- 扫描注解类 -->
-       <context:component-scan base-package="com.homeinns.web.controller"/>
+    <!-- 对静态资源文件的访问  方案二 （二选一）
+    <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>
+    <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
+    <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>
+-->
+    <!-- 配置JSP视图解析  -->
+    <bean id="jspView" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/view/" p:suffix=".jsp" p:order="1" />
+    <!-- 扫描注解类 -->
+    <context:component-scan base-package="com.homeinns.web.controller"/>
+
 </beans>
