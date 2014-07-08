@@ -9,9 +9,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
         <context:component-scan base-package="com.homeinns.web.controller"/>
-        <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-            <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-            <property name="prefix" value="/WEB-INF/jsp/"/>
-            <property name="suffix" value=".jsp"/>
-        </bean>
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:prefix="/WEB-INF/view/" p:suffix=".jsp" />
 </beans>

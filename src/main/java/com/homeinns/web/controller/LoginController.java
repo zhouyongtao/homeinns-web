@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by Irving on 2014/7/6.
  */
 @Controller
+@RequestMapping("login")
 public class LoginController {
     Logger logger = LoggerFactory.getLogger(HomeController.class);
-    @RequestMapping(value = "/login" ,method = RequestMethod.GET)
-    public String hello() {
+    @RequestMapping(value = "/" ,method = RequestMethod.GET)
+    public String login() {
         logger.info("login");
         return "/login";
     }
