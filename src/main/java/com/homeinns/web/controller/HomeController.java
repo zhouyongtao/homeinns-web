@@ -16,6 +16,7 @@ import java.io.IOException;
 @RequestMapping("/home")
 public class HomeController {
     Logger logger = LoggerFactory.getLogger(HomeController.class);
+
     @RequestMapping()
     public String index(HttpSession session,HttpServletRequest request,HttpServletResponse response) {
         String sessionId= request.getRequestedSessionId();
