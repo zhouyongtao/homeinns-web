@@ -2,18 +2,18 @@ package com.homeinns.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by Irving on 2014/7/6.
+ * Created by Administrator on 2014/7/8.
  */
 @Controller
-public class LoginController {
+public class HelloController {
     Logger logger = LoggerFactory.getLogger(HomeController.class);
-    @RequestMapping(value = "/login" ,method = RequestMethod.GET)
-    public String login() {
-        logger.info("LoginController login ");
-        return "login/login";
+    @RequestMapping("/hello")
+    public String hello(Model model) {
+        logger.info("HelloController Hello ");
+        return "/hello/hello";
     }
 }
