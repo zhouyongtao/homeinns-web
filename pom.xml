@@ -44,6 +44,12 @@
           <artifactId>spring-test</artifactId>
           <version>4.0.5.RELEASE</version>
       </dependency>
+      <!--logback-->
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>1.1.2</version>
+      </dependency>
       <!--joda-time-->
       <dependency>
           <groupId>joda-time</groupId>
