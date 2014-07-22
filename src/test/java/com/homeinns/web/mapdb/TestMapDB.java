@@ -38,6 +38,10 @@ public class TestMapDB {
 
     @Test
     public void create(){
+        /*
+        String path= TestMapDB.class.getResource("").getPath();
+        System.out.println(path);
+        */
         DB db = DBMaker.newFileDB(new File(filePath)).make();
         Map map = db.getHashMap("HotelData");
         map.put("hotelName", "上海徐汇和颐酒店");

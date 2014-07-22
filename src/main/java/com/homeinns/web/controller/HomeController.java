@@ -46,7 +46,7 @@ public class HomeController {
         }
         finally
         {
-            if (out != null){ out.close();}
+            if (null != out){ out.close();}
         }
     }
 }
