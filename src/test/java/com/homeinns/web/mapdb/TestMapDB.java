@@ -11,6 +11,9 @@ import java.util.concurrent.ConcurrentNavigableMap;
  */
 public class TestMapDB {
 
+    //文件路径
+    private static String filePath="D:\\idea\\Java\\homeinns-web\\cache\\HomeinnsCache";
+
     @Test
     public void init(){
         //configure and open database using builder pattern.
@@ -35,7 +38,7 @@ public class TestMapDB {
 
     @Test
     public void create(){
-        DB db = DBMaker.newFileDB(new File("D:\\idea\\Java\\homeinns-web\\cache\\HomeinnsCache")).make();
+        DB db = DBMaker.newFileDB(new File(filePath)).make();
         Map map = db.getHashMap("HotelData");
         map.put("hotelName", "上海徐汇和颐酒店");
         db.commit();
@@ -44,7 +47,7 @@ public class TestMapDB {
 
     @Test
     public void get(){
-        DB db = DBMaker.newFileDB(new File("D:\\idea\\Java\\homeinns-web\\cache\\HomeinnsCache")).make();
+        DB db = DBMaker.newFileDB(new File(filePath)).make();
         Map map = db.getHashMap("HotelData");
         System.out.print(map.get("hotelName"));
     }
