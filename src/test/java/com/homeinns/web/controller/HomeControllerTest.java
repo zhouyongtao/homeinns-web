@@ -1,5 +1,6 @@
 package com.homeinns.web.controller;
 
+import com.homeinns.web.scheduled.ScheduledTasks;
 import com.homeinns.web.service.ILoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

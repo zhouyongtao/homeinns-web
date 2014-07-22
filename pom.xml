@@ -44,6 +44,24 @@
           <artifactId>spring-test</artifactId>
           <version>4.0.5.RELEASE</version>
       </dependency>
+      <!--mysql-->
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.31</version>
+      </dependency>
+      <!--druid-->
+      <dependency>
+          <groupId>com.alibaba</groupId>
+          <artifactId>druid</artifactId>
+          <version>1.0.7</version>
+      </dependency>
+      <!--dbutils-->
+      <dependency>
+          <groupId>commons-dbutils</groupId>
+          <artifactId>commons-dbutils</artifactId>
+          <version>1.6</version>
+      </dependency>
       <!--mybatis-->
       <dependency>
           <groupId>org.mybatis</groupId>
@@ -54,18 +72,6 @@
           <groupId>org.mybatis</groupId>
           <artifactId>mybatis-spring</artifactId>
           <version>1.2.2</version>
-      </dependency>
-      <!--druid-->
-      <dependency>
-          <groupId>com.alibaba</groupId>
-          <artifactId>druid</artifactId>
-          <version>1.0.7</version>
-      </dependency>
-      <!--dbutils-->
-      <dependency>
-      <groupId>commons-dbutils</groupId>
-      <artifactId>commons-dbutils</artifactId>
-      <version>1.6</version>
       </dependency>
       <!--quartz-->
       <dependency>
