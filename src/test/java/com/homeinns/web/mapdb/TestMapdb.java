@@ -42,7 +42,6 @@ public class TestMapdb {
         db.close();
     }
 
-
     @Test
     public void get(){
         DB db = DBMaker.newFileDB(new File("D:\\idea\\Java\\homeinns-web\\cache\\HomeinnsCache")).make();
