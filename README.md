@@ -19,6 +19,12 @@ Spring
 ------
 http://projects.spring.io/spring-framework/<br/>
 http://docs.spring.io/spring/docs/4.0.5.RELEASE/spring-framework-reference/html/spring-web.html
+Quartz
+------
+http://quartz-scheduler.org/documentation
+Ehcache
+-------
+http://ehcache.org/documentation/get-started
 MapDB
 -----
 http://www.mapdb.org/doc/cheatsheet.pdf
