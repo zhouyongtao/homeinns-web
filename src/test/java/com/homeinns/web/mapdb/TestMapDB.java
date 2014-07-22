@@ -49,6 +49,6 @@ public class TestMapDB {
     public void get(){
         DB db = DBMaker.newFileDB(new File(filePath)).make();
         Map map = db.getHashMap("HotelData");
-        System.out.print(map.get("hotelName"));
+        System.out.println(map.get("hotelName"));
     }
 }
