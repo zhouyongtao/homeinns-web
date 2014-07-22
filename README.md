@@ -20,7 +20,9 @@ Spring
 ------
 http://projects.spring.io/spring-framework/<br/>
 http://docs.spring.io/spring/docs/4.0.5.RELEASE/spring-framework-reference/html/spring-web.html
-
+MapDB
+-----
+http://www.mapdb.org/02-getting-started.html
 Logback
 -------
 http://logback.qos.ch/manual/index.html
