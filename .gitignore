@@ -30,6 +30,7 @@ dependency-reduced-pom.xml
 #Log
 .project
 /log
+/LOG_*
 .base_IS_UNDEFINED
 /test-output/
 
