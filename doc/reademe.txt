@@ -1,0 +1,49 @@
+   <!-- 定义跳转的文件的前后缀 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个
+              可用的url地址 -->
+        <property name="prefix" value="/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+
+
+    <!-- 数据源配置 -->
+        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+            <property name="driverClass">
+                <value>${jdbc.driverClassName}</value>
+            </property>
+            <property name="jdbcUrl">
+                <value>${jdbc.url}</value>
+            </property>
+            <property name="user">
+                <value>${jdbc.username}</value>
+            </property>
+            <property name="password">
+                <value>${jdbc.password}</value>
+            </property>
+            <property name="acquireIncrement">
+                <value>${c3p0.acquireIncrement}</value>
+            </property>
+            <property name="initialPoolSize">
+                <value>${c3p0.initialPoolSize}</value>
+            </property>
+            <property name="minPoolSize">
+                <value>${c3p0.minPoolSize}</value>
+            </property>
+            <property name="maxPoolSize">
+                <value>${c3p0.maxPoolSize}</value>
+            </property>
+            <property name="maxIdleTime">
+                <value>${c3p0.maxIdleTime}</value>
+            </property>
+            <property name="idleConnectionTestPeriod">
+                <value>${c3p0.idleConnectionTestPeriod}</value>
+            </property>
+            <property name="maxStatements">
+                <value>${c3p0.maxStatements}</value>
+            </property>
+            <property name="numHelperThreads">
+                <value>${c3p0.numHelperThreads}</value>
+            </property>
+        </bean>

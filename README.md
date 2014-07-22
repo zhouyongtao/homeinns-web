@@ -22,6 +22,9 @@ http://docs.spring.io/spring/docs/4.0.5.RELEASE/spring-framework-reference/html/
 Mybatis
 -------
 http://mybatis.github.io/spring/zh/index.html
+Druid
+-----
+https://github.com/alibaba/druid
 Quartz
 ------
 http://quartz-scheduler.org/documentation

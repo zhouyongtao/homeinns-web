@@ -55,6 +55,12 @@
           <artifactId>mybatis-spring</artifactId>
           <version>1.2.2</version>
       </dependency>
+      <!--druid-->
+      <dependency>
+          <groupId>com.alibaba</groupId>
+          <artifactId>druid</artifactId>
+          <version>1.0.7</version>
+      </dependency>
       <!--dbutils-->
       <dependency>
       <groupId>commons-dbutils</groupId>
