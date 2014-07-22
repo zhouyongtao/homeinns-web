@@ -44,6 +44,18 @@
           <artifactId>spring-test</artifactId>
           <version>4.0.5.RELEASE</version>
       </dependency>
+      <!--mapdb-->
+      <dependency>
+          <groupId>org.mapdb</groupId>
+          <artifactId>mapdb</artifactId>
+          <version>1.0.5</version>
+      </dependency>
+      <!--dbutils-->
+      <dependency>
+      <groupId>commons-dbutils</groupId>
+      <artifactId>commons-dbutils</artifactId>
+      <version>1.6</version>
+      </dependency>
       <!--logback-->
       <dependency>
           <groupId>ch.qos.logback</groupId>
