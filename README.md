@@ -19,6 +19,9 @@ Spring
 ------
 http://projects.spring.io/spring-framework/<br/>
 http://docs.spring.io/spring/docs/4.0.5.RELEASE/spring-framework-reference/html/spring-web.html
+Mybatis
+-------
+http://mybatis.github.io/spring/zh/index.html
 Quartz
 ------
 http://quartz-scheduler.org/documentation
