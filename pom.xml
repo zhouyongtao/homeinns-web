@@ -44,6 +44,23 @@
           <artifactId>spring-test</artifactId>
           <version>4.0.5.RELEASE</version>
       </dependency>
+      <!--mybatis-->
+      <dependency>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis</artifactId>
+          <version>3.2.7</version>
+      </dependency>
+      <dependency>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis-spring</artifactId>
+          <version>1.2.2</version>
+      </dependency>
+      <!--dbutils-->
+      <dependency>
+      <groupId>commons-dbutils</groupId>
+      <artifactId>commons-dbutils</artifactId>
+      <version>1.6</version>
+      </dependency>
       <!--quartz-->
       <dependency>
           <groupId>org.quartz-scheduler</groupId>
@@ -82,23 +99,6 @@
           <groupId>org.mapdb</groupId>
           <artifactId>mapdb</artifactId>
           <version>1.0.5</version>
-      </dependency>
-      <!--mybatis-->
-      <dependency>
-          <groupId>org.mybatis</groupId>
-          <artifactId>mybatis</artifactId>
-          <version>3.2.7</version>
-      </dependency>
-      <dependency>
-          <groupId>org.mybatis</groupId>
-          <artifactId>mybatis-spring</artifactId>
-          <version>1.2.2</version>
-      </dependency>
-      <!--dbutils-->
-      <dependency>
-      <groupId>commons-dbutils</groupId>
-      <artifactId>commons-dbutils</artifactId>
-      <version>1.6</version>
       </dependency>
       <!--logback-->
       <dependency>
