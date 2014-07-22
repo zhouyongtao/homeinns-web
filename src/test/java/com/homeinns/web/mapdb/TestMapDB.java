@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentNavigableMap;
 
 /**
  * Created by ytzhou on 2014/7/22.
- *
+ * DEMO: https://github.com/jankotek/MapDB/tree/master/src/test/java/examples
  */
 public class TestMapDB {
 
