@@ -25,6 +25,9 @@ http://quartz-scheduler.org/documentation
 Ehcache
 -------
 http://ehcache.org/documentation/get-started
+OsCache
+-------
+https://java.net/downloads/oscache/
 MapDB
 -----
 http://www.mapdb.org/doc/cheatsheet.pdf
