@@ -101,7 +101,7 @@
           <artifactId>mybatis-ehcache</artifactId>
           <version>1.0.0</version>
       </dependency>
-      <!--oscache-->
+      <!--oscache
       <dependency>
           <groupId>opensymphony</groupId>
           <artifactId>oscache</artifactId>
@@ -112,6 +112,7 @@
           <artifactId>mybatis-oscache</artifactId>
           <version>1.0.0</version>
       </dependency>
+      -->
       <!--mapdb-->
       <dependency>
           <groupId>org.mapdb</groupId>
@@ -123,6 +124,16 @@
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-classic</artifactId>
           <version>1.1.2</version>
+      </dependency>
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-ext-spring</artifactId>
+          <version>0.1.2</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.7</version>
       </dependency>
       <!--joda-time-->
       <dependency>
