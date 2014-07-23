@@ -9,7 +9,7 @@
 	</head>
 	
 	<body>
-		<form action="${ctx}/books/save" method="GET">
+		<form action="${ctx}/book/save" method="GET">
 			<table width="70%" border="0" align="center" cellpadding="3" cellspacing="0">
 				<tr>
 					
@@ -33,13 +33,11 @@
 					<td>
 						<input type="submit" value="保存" />
 					</td>
-					<td><a href="${ctx}/books/books_list">返回</a></td>
+					<td><a href="${ctx}/book/books_list">返回</a></td>
 				</tr>
 			</table>
 		</form>	
-	
-		
-		
+
 	</body>
 	
 </html>

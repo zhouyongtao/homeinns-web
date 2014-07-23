@@ -60,6 +60,5 @@ public class BookController {
     public String books_list(){
         return "/books_list";
     }
-
 }
 

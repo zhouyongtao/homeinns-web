@@ -8,6 +8,7 @@
         <setting name="lazyLoadingEnabled" value="false" />
     </settings>
     <typeAliases>
-        <package name="com.homeinns.web.entity"/>
+        <typeAlias alias="book" type="com.homeinns.web.entity.Book" />
+        <typeAlias alias="user" type="com.homeinns.web.entity.User" />
     </typeAliases>
 </configuration>

@@ -19,7 +19,8 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 添加注解驱动 -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
+
     <!-- 当请求应用程序首页时，将执行/home请求，还可以设定成redirect -->
     <mvc:view-controller path="/" view-name="forward:/home/" />
 
@@ -27,7 +28,7 @@
     <mvc:resources location="/content/" mapping="/content/**"/>
 
     <!-- 配置JSP视图解析  -->
-    <bean id="jspView" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/view/" p:suffix=".jsp" p:order="1" />
+    <bean id="jspView" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp" p:order="1" />
 
     <!-- 扫描注解类 -->
     <context:component-scan base-package="com.homeinns.web.controller"/>

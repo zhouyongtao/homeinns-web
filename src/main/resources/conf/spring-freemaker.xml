@@ -27,7 +27,7 @@
         <!-- 模板输出内容编码，此处应与defaultEncoding保持一致 -->
         <property name="contentType" value="text/html;charset=UTF-8" />
         <!--排序-->
-        <property name="order" value="2" />
+        <property name="order" value="0" />
     </bean>
 
     <bean id="freemarkerConfig"

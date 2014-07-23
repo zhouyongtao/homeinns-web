@@ -4,8 +4,7 @@
 	<head>
 		<title>列表显示</title>
 		<#include "/common/meta.ftl"/>
-	
-		
+
 		<script type="text/javascript">
 		</script>
 	</head>
@@ -13,7 +12,7 @@
 	<body>
 	
 	<div>  
-  	<form action="${ctx}/books/save" method="GET">
+  	<form action="${ctx}/book/save" method="GET">
 			<input type="hidden" name="bookId" value="${(entity.bookId)!''}" />
 			<div>
 				<table width="60%" border="0" cellpadding="3" cellspacing="1">
@@ -36,12 +35,10 @@
 				</table>
 			</div>
 			<div>
-				<h3><input type="submit" value="保存" /><a href="${ctx}/books/list">返回</a></h3>
+				<h3><input type="submit" value="保存" /><a href="${ctx}/book/list">返回</a></h3>
 			</div>
 		</form>	
-	
-		
-		
+
 	</body>
 	
 </html>
