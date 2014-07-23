@@ -5,11 +5,14 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>homeinns.web</display-name>
+
     <!--上下文分解配置-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:conf/*.xml</param-value>
+        <param-value>classpath*:conf/*.xml</param-value>
+        <!--<param-value>classpath*:resources/applicationContext.xml</param-value>-->
     </context-param>
+
     <!--logback配置-->
     <context-param>
         <param-name>logbackConfigLocation</param-name>
@@ -18,6 +21,7 @@
     <listener>
         <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
     </listener>
+
     <!--字符集过滤器-->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -26,11 +30,16 @@
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <!-- 配置DispatcherServlet-->
     <servlet>
         <servlet-name>dispatcher</servlet-name>
@@ -45,10 +54,6 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/home</url-pattern>
-    </servlet-mapping>
     <!-- 防止spring内存溢出监听器 -->
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
@@ -57,8 +62,4 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <!-- 首页 -->
-    <welcome-file-list>
-        <welcome-file>home</welcome-file>
-    </welcome-file-list>
 </web-app>

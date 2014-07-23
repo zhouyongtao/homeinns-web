@@ -18,9 +18,10 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!-- jdbc配置文件 -->
+    <!-- load jdbc properties -->
     <context:property-placeholder location="classpath:jdbc.properties" />
-    <!-- 数据源配置 -->
+
+    <!-- Declare a datasource that has pooling capabilities -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!--  基本属性 url、user、password  数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
         <property name="url" value="${jdbc.url}" />
@@ -51,30 +52,34 @@
         <property name="transactionQueryTimeout" value="10"/>
     </bean>
 
-    <!-- 配置JdbcTemplate与MyBatis的SqlSessionFactory-->
+    <!-- Enable annotation style of managing transactions -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- Declare a transaction manager -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="dataSource" p:defaultTimeout="20"  />
+
+    <!-- define the JdbcTemplate-->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <constructor-arg ref="dataSource"/>
     </bean>
+
+    <!-- define the SqlSessionFactory, notice that configLocation is not needed when you use MapperFactoryBean -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <!-- 指定sqlMapConfig总配置文件-->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!--
-        <property name="mapperLocations"  value="classpath*:com/xxt/ibatis/dbcp*.xml"/>
-        -->
+         <property name="mapperLocations"  value="classpath*:com/xxt/ibatis/dbcp*.xml"/>
+         -->
     </bean>
 
-    <!-- 基于JDBC的事务管理器 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-        <property name="defaultTimeout" value="20" />
+    <!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.homeinns.web.mapper" />
     </bean>
-    <!-- 使用annotation定义事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
 
-
-    <!-- 数据库大字段配置 -->
+    <!-- db big DefaultLobHandler -->
     <bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
           lazy-init="true" />
-
 </beans>

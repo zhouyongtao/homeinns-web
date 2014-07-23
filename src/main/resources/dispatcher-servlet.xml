@@ -18,16 +18,22 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!-- 添加注解驱动 -->
+    <mvc:annotation-driven />
+    <!-- 当请求应用程序首页时，将执行/home请求，还可以设定成redirect -->
+    <mvc:view-controller path="/" view-name="forward:/home/" />
+
+    <!-- 以下配置这一条代码就可以访问在其目录下的任何JS ,CSS,图片等文件了 -->
+    <mvc:resources location="/content/" mapping="/content/**"/>
+
+    <!-- 配置JSP视图解析  -->
+    <bean id="jspView" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/view/" p:suffix=".jsp" p:order="1" />
 
     <!-- 扫描注解类 -->
     <context:component-scan base-package="com.homeinns.web.controller"/>
     <context:component-scan base-package="com.homeinns.web.service.impl"/>
     <context:component-scan base-package="com.homeinns.web.dao.impl"/>
     <context:component-scan base-package="com.homeinns.web.scheduled"/>
-    <!-- 添加注解驱动 -->
-    <mvc:annotation-driven />
-    <!-- 配置JSP视图解析  -->
-    <bean id="jspView" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/view/" p:suffix=".jsp" p:order="1" />
 
     <!-- 缓存对象
     <bean id="cacheAdmin"
