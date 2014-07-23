@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>首页</title>
+    <script type="text/javascript" src="../content/DD_belatedPNG_0.0.8a.js"></script>
 </head>
 <body>
 首页哈哈哈哈
