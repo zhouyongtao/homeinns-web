@@ -63,11 +63,6 @@
         <property name="mapperLocations"  value="classpath*:com/xxt/ibatis/dbcp*.xml"/>
         -->
     </bean>
-    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory" />
-        <constructor-arg index="1" value="BATCH" />
-    </bean>
-
 
     <!-- 基于JDBC的事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
