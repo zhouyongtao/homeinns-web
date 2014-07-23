@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bookMapper">
+
+    <resultMap type="com.homeinns.web.entity.Book" id="baseResultMap">
+        <id property="bookId" column="book_id" />
+        <result property="bookName" column="book_name" />
+        <result property="mfrName" column="mfr_name" />
+        <result property="bookSort" column="book_sort" />
+        <result property="bookAuthor" column="book_author" />
+        <result property="costPrice" column="cost_price" />
+    </resultMap>
+
+    <sql id="base_column">
+        book_id,book_name,mfr_name,book_sort,book_author,cost_price
+    </sql>
+
+    <!-- 保存对象-->
+    <insert id="insert" parameterType="book">
+        insert into s_books
+        (<include refid="base_column" />)
+        values (#{bookId},#{bookName},#{mfrName},#{bookSort},#{bookAuthor},#{costPrice})
+    </insert>
+
+
+    <!-- 根据主键查询对象 -->
+    <select id="selectByPrimaryKey" parameterType="int" resultMap="baseResultMap">
+        select
+        <include refid="base_column" />
+        from s_books
+        where book_id = #{bookId}
+    </select>
+
+
+    <select id="selectByQuery" parameterType="book" resultMap="baseResultMap">
+        select
+        <include refid="base_column" />
+        from s_books
+        <where>
+            <if test="bookName != null and bookName != ''">
+                book_name like ""#{bookName}"%"
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据主键更新对象 -->
+    <update id="update" parameterType="book">
+        update s_books
+
+        <set>
+            <if test="bookName != null and bookName != ''">
+                book_name = #{bookName},
+            </if>
+            <if test="mfrName != null and mfrName != ''">
+                mfr_name = #{mfrName},
+            </if>
+            <if test="bookSort != null and bookSort != ''">
+                book_sort = #{bookSort},
+            </if>
+            <if test="bookAuthor != null and bookAuthor != ''">
+                book_author = #{bookAuthor},
+            </if>
+            <if test="costPrice != null and costPrice != ''">
+                cost_price = #{costPrice},
+            </if>
+
+
+        </set>
+        where book_id = #{bookId}
+    </update>
+
+
+    <!-- 根据主键删除对象 -->
+    <delete id="deleteByPrimaryKey" parameterType="int">
+        delete from s_books
+        where book_id = #{book_id}
+    </delete>
+
+</mapper>

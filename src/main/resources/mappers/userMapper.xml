@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userMapper">
+
+	<resultMap id="result" type="user">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="standard" column="standard"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+	
+	<select id="getAllUser" resultMap="result">  
+		SELECT id,name,standard,age,sex 
+		FROM user; 
+	</select>
+	
+	<insert id="saveUser" parameterType="user">
+		INSERT INTO user (id,name,standard,age,sex) 
+    	VALUE (#{id},#{name},#{standard},#{age},#{sex})
+	</insert>
+	
+	<update id="updateUser" parameterType="user"> 
+  		UPDATE user
+  		SET
+  			name = #{name},  
+			standard = #{standard},  
+			age = #{age},  
+			sex = #{sex} 
+  		where id = #{id} 
+	</update>
+	
+	<delete id="deleteUser" parameterType="int">
+    	DELETE FROM user
+    	WHERE id = #{id}
+    </delete>
+</mapper>
