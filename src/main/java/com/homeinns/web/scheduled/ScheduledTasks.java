@@ -10,7 +10,8 @@ import java.util.Date;
  * Created by Administrator on 2014/7/23.
  * http://spring.io/guides/gs/scheduling-tasks/
  */
-@Component
+
+//@Component
 @EnableScheduling
 public class ScheduledTasks {
 
