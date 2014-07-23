@@ -8,6 +8,9 @@
         <setting name="lazyLoadingEnabled" value="false" />
     </settings>
     <typeAliases>
-        <typeAlias type="com.homeinns.web.entity.User" alias="user"/>
+        <package name="com.homeinns.web.entity"/>
     </typeAliases>
+    <plugins>
+        <plugin interceptor="com.lavasoft.framework.ext.interceptor.PageInterceptor"/>
+    </plugins>
 </configuration>

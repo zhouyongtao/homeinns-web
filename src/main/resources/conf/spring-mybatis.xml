@@ -52,13 +52,13 @@
         <property name="transactionQueryTimeout" value="10"/>
     </bean>
 
-    <!-- Enable annotation style of managing transactions -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
-
     <!-- Declare a transaction manager -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
           p:dataSource-ref="dataSource" p:defaultTimeout="20"  />
+
+    <!-- Enable annotation style of managing transactions -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
     <!-- define the JdbcTemplate-->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
@@ -72,7 +72,6 @@
         <property name="mapperLocations" value="classpath*:/com/homeinns/web/entity/*.xml"/>
     </bean>
 
-    <!--http://lavasoft.blog.51cto.com/62575/1389190-->
     <!-- scan for mappers and let them be autowired
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.homeinns.web.entity" />

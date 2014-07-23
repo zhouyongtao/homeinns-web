@@ -70,3 +70,23 @@
                 <value>${c3p0.numHelperThreads}</value>
             </property>
         </bean>
+
+
+
+        <!-- 配置那些类的方法进行事务管理 -->
+            <aop:config>
+                <aop:pointcut id="executeService" expression="execution(* com.lavasoft.*.service..*(..))"/>
+                <aop:advisor pointcut-ref="executeService" advice-ref="txAdvice"/>
+            </aop:config>
+            <tx:advice id="txAdvice" transaction-manager="transactionManager">
+                <tx:attributes>
+                    <tx:method name="select*" read-only="true"/>
+                    <tx:method name="get*" read-only="true"/>
+                    <tx:method name="load*" read-only="true"/>
+                    <tx:method name="find*" read-only="true"/>
+                    <tx:method name="query*" read-only="true"/>
+                    <tx:method name="read*" read-only="true"/>
+                    <tx:method name="sync*"/>
+                    <tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+                </tx:attributes>
+            </tx:advice>
