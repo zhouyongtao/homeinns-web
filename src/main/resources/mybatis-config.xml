@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="BlogCategory" type="com.mybatis.bean.BlogCategory" />
-        <typeAlias alias="BlogArticle" type="com.mybatis.bean.BlogArticle" />
+
     </typeAliases>
 </configuration>

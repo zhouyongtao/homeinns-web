@@ -50,6 +50,12 @@
           <artifactId>mysql-connector-java</artifactId>
           <version>5.1.31</version>
       </dependency>
+      <!--sqljdbc4-->
+      <dependency>
+          <groupId>com.microsoft.sqlserver</groupId>
+          <artifactId>sqljdbc4</artifactId>
+          <version>4.0</version>
+      </dependency>
       <!--druid-->
       <dependency>
           <groupId>com.alibaba</groupId>
