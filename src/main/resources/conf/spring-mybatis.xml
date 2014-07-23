@@ -45,7 +45,7 @@
         <property name="poolPreparedStatements" value="true" />
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
         <!-- 配置监控统计拦截的filters -->
-        <property name="filters" value="stat" />
+        <property name="filters" value="stat,slf4j" />
         <!--时间配置-->
         <property name="loginTimeout" value="10"/>
         <property name="queryTimeout" value="10"/>

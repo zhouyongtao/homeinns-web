@@ -10,7 +10,4 @@
     <typeAliases>
         <package name="com.homeinns.web.entity"/>
     </typeAliases>
-    <plugins>
-        <plugin interceptor="com.lavasoft.framework.ext.interceptor.PageInterceptor"/>
-    </plugins>
 </configuration>

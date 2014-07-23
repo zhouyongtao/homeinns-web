@@ -9,6 +9,47 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- 针对freemarker的视图配置 -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="true" />
+        <!-- 模板后缀，指定ftl页面为模板 -->
+        <property name="suffix" value=".ftl" />
+        <!-- 使用这个模板类来解析视图 -->
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <!-- 允许访问请求属性，默认为false -->
+        <property name="exposeRequestAttributes" value="true" />
+        <!-- 允许访问会话属性，默认为false -->
+        <property name="exposeSessionAttributes" value="true" />
+        <!-- 页面上下文，类似于request.contextPath -->
+        <property name="requestContextAttribute" value="rc" />
+        <!-- 模板输出内容编码，此处应与defaultEncoding保持一致 -->
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <!--排序-->
+        <property name="order" value="2" />
+    </bean>
 
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <!-- 模板文件所在目录 -->
+        <property name="templateLoaderPath" value="WEB-INF/pages/" />
+        <!-- 指定FreeMarker模板文件的编码格式 -->
+        <property name="defaultEncoding" value="UTF-8" />
+        <!-- FreeMarker属性配置 -->
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="classic_compatible">true</prop><!-- 此属性可以防止模板解析空值时的错误  -->
+                <prop key="defaultEncoding">UTF-8</prop><!--模板的编码格式 -->
+                <!--
+                    每隔5小时检查模板是否更新，单位为秒
+                    如果不经常更新模板可将更新的延迟时间设定长一点
+                -->
+                <prop key="template_update_delay">18000</prop>
+                <!-- 指定地区语言环境，我们的语言是中文 -->
+                <prop key="locale">zh_CN</prop>
+            </props>
+        </property>
+    </bean>
 
 </beans>
