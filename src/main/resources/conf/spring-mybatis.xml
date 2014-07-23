@@ -19,8 +19,7 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- load jdbc properties -->
-    <context:property-placeholder location="classpath*:jdbc.properties" />
-
+    <context:property-placeholder location="classpath*:jdbc.properties" ignore-unresolvable="true"/>
     <!-- Declare a datasource that has pooling capabilities -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!--  基本属性 url、user、password  数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->

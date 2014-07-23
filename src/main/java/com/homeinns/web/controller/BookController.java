@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 /**
  * Created by Administrator on 2014/7/23.
  */
@@ -20,11 +19,18 @@ public class BookController {
     @Autowired
     private BookServiceImpl booksService;
 
+
+    @RequestMapping()
+    public String index(Model model) {
+        //   model.addAttribute("list", booksService.getBooks());
+        return "/books_list";
+    }
+
     /*保存数据对象 */
     @RequestMapping(value="/save", method = RequestMethod.GET)
     public String save(Model model, Book books){
         booksService.save(books);
-        return "redirect:/books/list";
+        return "redirect:/book/list";
     }
 
 
@@ -47,7 +53,7 @@ public class BookController {
     @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
     public String delete(Model model, @PathVariable("id") Integer id){
         booksService.delete(id);
-        return "redirect:/books/list";
+        return "redirect:/book/list";
     }
 
 

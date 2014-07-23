@@ -21,7 +21,7 @@
 					<div>
 						<input type="submit" value="搜索" />
 					</div>
-					<div><a href="${ctx}/book/books_add"><input type="submit" value="添加" /></a></div>
+					<div><a href="${ctx}/book/books_add"><input type="button" value="添加" /></a></div>
 				</form>
 			</div>
 		</div>

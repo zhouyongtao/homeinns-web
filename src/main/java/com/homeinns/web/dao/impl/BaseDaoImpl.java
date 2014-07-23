@@ -2,7 +2,8 @@ package com.homeinns.web.dao.impl;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2014/7/23.
  */
-@Component
+@Repository
 public   class BaseDaoImpl <T>extends SqlSessionDaoSupport {
     @Resource
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
