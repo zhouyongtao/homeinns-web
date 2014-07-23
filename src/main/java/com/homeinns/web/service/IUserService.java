@@ -1,5 +1,5 @@
 package com.homeinns.web.service;
-import com.homeinns.web.mapper.User;
+import com.homeinns.web.entity.User;
 import java.util.List;
 
 public interface IUserService {

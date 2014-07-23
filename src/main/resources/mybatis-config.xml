@@ -8,6 +8,6 @@
         <setting name="lazyLoadingEnabled" value="false" />
     </settings>
     <typeAliases>
-        <typeAlias type="com.homeinns.web.mapper.User" alias="user"/>
+        <typeAlias type="com.homeinns.web.entity.User" alias="user"/>
     </typeAliases>
 </configuration>

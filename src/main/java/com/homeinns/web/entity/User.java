@@ -1,4 +1,4 @@
-package com.homeinns.web.mapper;
+package com.homeinns.web.entity;
 
 /**
  * Created by ytzhou on 2014/7/23.
