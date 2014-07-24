@@ -17,9 +17,13 @@
 
     <!-- 保存对象-->
     <insert id="insert" parameterType="book">
+        INSERT INTO s_books (book_name,mfr_name,book_sort,book_author,cost_price)
+        values (#{bookName},#{mfrName},#{bookSort},#{bookAuthor},#{costPrice})
+        <!--
         insert into s_books
         (<include refid="base_column" />)
         values (#{bookId},#{bookName},#{mfrName},#{bookSort},#{bookAuthor},#{costPrice})
+        -->
     </insert>
 
 
@@ -38,7 +42,7 @@
         from s_books
         <where>
             <if test="bookName != null and bookName != ''">
-                book_name like ""#{bookName}"%"
+                book_name like '%${bookName}%'
             </if>
         </where>
     </select>
