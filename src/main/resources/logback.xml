@@ -64,8 +64,9 @@
         <!--<appender-ref ref="DB" />-->
     </root>
 
-    <!-- 打印DEBUG级别日志 -->
+    <!-- 打印DEBUG级别日志
     <root level="DEBUG">
         <appender-ref ref="Console" />
     </root>
+     -->
 </configuration>
