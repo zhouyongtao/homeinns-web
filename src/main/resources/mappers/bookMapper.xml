@@ -16,7 +16,7 @@
     </sql>
 
     <!-- 保存对象-->
-    <insert id="insert" parameterType="book">
+    <insert id="insert" useGeneratedKeys="true" parameterType="book">
         INSERT INTO s_books (book_name,mfr_name,book_sort,book_author,cost_price)
         values (#{bookName},#{mfrName},#{bookSort},#{bookAuthor},#{costPrice})
         <!--

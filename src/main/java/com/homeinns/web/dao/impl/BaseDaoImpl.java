@@ -13,6 +13,7 @@ import java.util.List;
  */
 @Repository
 public   class BaseDaoImpl <T>extends SqlSessionDaoSupport {
+
     @Resource
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         super.setSqlSessionFactory(sqlSessionFactory);
