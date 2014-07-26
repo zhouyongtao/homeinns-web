@@ -19,7 +19,6 @@ public class BookController {
     @Autowired
     private BookServiceImpl booksService;
 
-
     @RequestMapping()
     public String index(Model model) {
         //   model.addAttribute("list", booksService.getBooks());
@@ -32,7 +31,6 @@ public class BookController {
         booksService.save(books);
         return "redirect:/book/list";
     }
-
 
     /*列出数据对象列表 */
     @RequestMapping(value="/list",method = RequestMethod.GET)
@@ -55,7 +53,6 @@ public class BookController {
         booksService.delete(id);
         return "redirect:/book/list";
     }
-
 
     @RequestMapping("/books_add")
     public String books_add(){

@@ -1,3 +1,13 @@
+ maven:
+
+ 需要手动 mvn 两个包
+
+
+
+
+
+
+
    <!-- 定义跳转的文件的前后缀 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个
