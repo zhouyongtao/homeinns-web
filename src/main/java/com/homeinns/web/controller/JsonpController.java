@@ -2,6 +2,8 @@ package com.homeinns.web.controller;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,10 +11,15 @@ import java.io.IOException;
 
 /**
  * Created by Administrator on 2014/8/10.
+ *
+ * ctrl +k  提交代码
  */
 @Controller
 @RequestMapping("/jsonp")
 public class JsonpController {
+
+    Logger logger = LoggerFactory.getLogger(HomeController.class);
+
     @RequestMapping()
     public  void index() throws IOException {
         /*
@@ -36,6 +43,10 @@ public class JsonpController {
                 .cookie("auth", "token") //设置cookie
                 .timeout(3000)           //设置连接超时时间
                 .post();                 //使用POST方法访问URL
+
+        logger.info("doc: "+ doc.body());
+
+
 
 
     }
