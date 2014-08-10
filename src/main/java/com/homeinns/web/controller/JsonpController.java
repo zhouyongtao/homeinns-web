@@ -6,12 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSe
 import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by Administrator on 2014/8/10.
+ * Created by Irving on 2014/8/10.
  *
  * ctrl +k  提交代码
  */
