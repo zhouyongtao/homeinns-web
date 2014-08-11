@@ -49,7 +49,7 @@ public class JsonpController {
                                 .data("query", "Java")   //请求参数
                                 .userAgent("I’m jsoup") //设置User-Agent
                                 .cookie("auth", "token") //设置cookie
-                                .timeout(3000)           //设置连接超时时间
+                                .timeout(5000)           //设置连接超时时间
                                 .post();                 //使用POST方法访问URL
             logger.info("doc: "+ doc.body());
             if(doc!=null) {
