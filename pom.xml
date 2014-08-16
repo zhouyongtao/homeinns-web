@@ -119,6 +119,14 @@
           <version>1.0.0</version>
       </dependency>
       -->
+
+
+      <!-- netty-->
+      <dependency>
+          <groupId>io.netty</groupId>
+          <artifactId>netty-all</artifactId>
+          <version>4.0.23.Final</version>
+      </dependency>
       <!--fastjson-->
       <dependency>
           <groupId>com.alibaba</groupId>
