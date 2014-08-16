@@ -119,8 +119,12 @@
           <version>1.0.0</version>
       </dependency>
       -->
-
-
+      <!-- scala-->
+      <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scala-library</artifactId>
+          <version>2.11.2</version>
+      </dependency>
       <!-- netty-->
       <dependency>
           <groupId>io.netty</groupId>
