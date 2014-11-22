@@ -72,6 +72,7 @@ public class AuthzController {
                                         .buildQueryMessage();
             response.sendRedirect(oauthResponse.getLocationUri());
         } catch(OAuthProblemException ex) {
+            logger.error("authorize ex : "+ex.getMessage() + ex.getStackTrace());
             String redirectUri = ex.getRedirectUri();
             //302地址为空
             if (redirectUri==null||redirectUri.length()==0) {
@@ -129,6 +130,7 @@ public class AuthzController {
             out.flush();
             out.close();
         } catch(OAuthProblemException ex) {
+            logger.error("access_token ex : "+ex.getMessage() + ex.getStackTrace());
             OAuthResponse r = OAuthResponse
                     .errorResponse(401)
                     .error(ex)
