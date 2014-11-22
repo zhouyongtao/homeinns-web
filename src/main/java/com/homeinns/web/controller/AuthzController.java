@@ -65,11 +65,11 @@ public class AuthzController {
             }
           //构建oauth2授权请求
           OAuthResponse oauthResponse = OAuthASResponse
-                               .authorizationResponse(request, HttpServletResponse.SC_FOUND)
-                                //UUIDValueGenerator OR MD5Generator
-                               .setCode(new OAuthIssuerImpl(new MD5Generator()).authorizationCode())
-                               .location(oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI))
-                               .buildQueryMessage();
+                                        .authorizationResponse(request, HttpServletResponse.SC_FOUND)
+                                         //UUIDValueGenerator OR MD5Generator
+                                        .setCode(new OAuthIssuerImpl(new MD5Generator()).authorizationCode())
+                                        .location(oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI))
+                                        .buildQueryMessage();
             response.sendRedirect(oauthResponse.getLocationUri());
         } catch(OAuthProblemException ex) {
             String redirectUri = ex.getRedirectUri();
@@ -119,11 +119,11 @@ public class AuthzController {
             // some code
 
             OAuthResponse r = OAuthASResponse
-                    .tokenResponse(HttpServletResponse.SC_OK)
-                    .setAccessToken(accessToken)
-                    .setExpiresIn("3600")
-                    .setRefreshToken(refreshToken)
-                    .buildJSONMessage();
+                              .tokenResponse(HttpServletResponse.SC_OK)
+                              .setAccessToken(accessToken)
+                              .setExpiresIn("3600")
+                              .setRefreshToken(refreshToken)
+                              .buildJSONMessage();
             response.setStatus(r.getResponseStatus());
             out.print(r.getBody());
             out.flush();
