@@ -40,8 +40,7 @@ public class AuthzController {
      * @url  http://localhost:8080/oauth2/authorize?client_id={AppKey}&response_type=code&redirect_uri={YourSiteUrl}
      * @test http://localhost:8080/oauth2/authorize?client_id=fbed1d1b4b1449daa4bc49397cbe2350&response_type=code&redirect_uri=http://baidu.com
      */
-    @RequestMapping(value = "/authorize", method =
-            RequestMethod.GET)
+    @RequestMapping(value = "/authorize",method = RequestMethod.GET)
     public Object authorize(HttpServletRequest request, HttpServletResponse response)
             throws OAuthSystemException, IOException {
         try {
