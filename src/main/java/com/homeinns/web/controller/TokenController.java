@@ -58,7 +58,7 @@ public class TokenController {
             OAuthTokenRequest oauthRequest = new OAuthTokenRequest(request);
             //验证redirecturl格式是否合法
             if (oauthRequest.getRedirectURI()==null||!oauthRequest.getRedirectURI().contains("http")) {
-                out.write("oauth2 callback url needs to be provided");
+                out.write(ConstantKey.INVALID_CALLBACK);
                 out.flush();
                 out.close();
                 return;
