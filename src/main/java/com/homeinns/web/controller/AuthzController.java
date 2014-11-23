@@ -10,6 +10,7 @@ import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.Cache;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 public class AuthzController {
 
     private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
-
+    private Cache cache;
      /* *
      * 构建OAuth2授权请求 [需要client_id与redirect_uri绝对地址]
      * @param request
@@ -46,7 +47,7 @@ public class AuthzController {
         PrintWriter out = null;
         try {
             out = response.getWriter();
-            //获得请求的参数信息
+            //构建OAuth请求
             OAuthAuthzRequest oauthRequest = new OAuthAuthzRequest(request);
             //验证redirecturl格式是否合法
             if (oauthRequest.getRedirectURI()==null||!oauthRequest.getRedirectURI().contains("http")) {
@@ -67,13 +68,17 @@ public class AuthzController {
                 out.close();
                 return;
             }
-          //构建oauth2授权请求
-          OAuthResponse oauthResponse = OAuthASResponse
-                               .authorizationResponse(request, HttpServletResponse.SC_FOUND)
-                                //UUIDValueGenerator OR MD5Generator
-                               .setCode(new OAuthIssuerImpl(new MD5Generator()).authorizationCode())
-                               .location(oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI))
-                               .buildQueryMessage();
+           //生成授权码
+           String authorizationCode = new OAuthIssuerImpl(new MD5Generator()).authorizationCode();
+           //把授权码存入缓存
+           cache.put(authorizationCode,request.getSession(true).getId());
+           //构建oauth2授权返回信息
+           OAuthResponse oauthResponse = OAuthASResponse
+                                       .authorizationResponse(request, HttpServletResponse.SC_FOUND)
+                                        //UUIDValueGenerator OR MD5Generator
+                                       .setCode(authorizationCode)
+                                       .location(oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI))
+                                       .buildQueryMessage();
             response.sendRedirect(oauthResponse.getLocationUri());
         } catch(OAuthProblemException ex) {
             //处理异常
