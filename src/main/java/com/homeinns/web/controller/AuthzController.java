@@ -113,11 +113,11 @@ public class AuthzController {
            //申请令牌成功重定向到客户端页
            return "redirect:"+oauthResponse.getLocationUri();
         } catch(OAuthProblemException ex) {
-            OAuthResponse oauthResponse = OAuthResponse
-                                          .errorResponse(SC_UNAUTHORIZED)
-                                          .error(ex)
-                                          .buildJSONMessage();
             logger.error("oauthRequest.getRedirectURI() : " + ex.getRedirectUri() + " oauthResponse.getBody() : " + oauthResponse.getBody());
+            OAuthResponse oauthResponse = OAuthResponse
+                    .errorResponse(SC_UNAUTHORIZED)
+                    .error(ex)
+                    .buildJSONMessage();
             model.addAttribute("errorMsg", oauthResponse.getBody());
             return  "/oauth2/error";
         }
