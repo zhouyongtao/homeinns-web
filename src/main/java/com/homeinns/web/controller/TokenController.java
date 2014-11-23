@@ -46,7 +46,7 @@ public class TokenController {
      * @return
      * @url http://localhost:8080/oauth2/access_token?client_id={AppKey}&client_secret={AppSecret}&grant_type=authorization_code&redirect_uri={YourSiteUrl}&code={code}
      */
-    @RequestMapping(value = "/access_token",method = RequestMethod.GET)
+    @RequestMapping(value = "/access_token",method = RequestMethod.POST)
     public void access_token(HttpServletRequest request, HttpServletResponse response)
             throws IOException, OAuthSystemException {
         PrintWriter out = null;
