@@ -12,7 +12,9 @@ import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,10 +28,16 @@ import java.util.ArrayList;
  * Created by Irving on 2014/11/22.
  */
 @RestController
+@RequestMapping("/oauth2")
+
 public class TokenController {
 
-    private static Logger logger = LoggerFactory.getLogger(TokenController.class);
-    private Cache cache;
+    private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
+    private Cache cache ;
+    @Autowired
+    public TokenController(CacheManager cacheManager) {
+        this.cache = cacheManager.getCache("oauth2-cache");
+    }
 
     /**
      * 获取令牌(AccessToken)

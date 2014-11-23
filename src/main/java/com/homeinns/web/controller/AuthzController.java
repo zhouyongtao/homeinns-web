@@ -10,7 +10,9 @@ import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +32,11 @@ import java.util.ArrayList;
 public class AuthzController {
 
     private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
-    private Cache cache;
+    private Cache cache ;
+    @Autowired
+    public AuthzController(CacheManager cacheManager) {
+        this.cache = cacheManager.getCache("oauth2-cache");
+    }
      /* *
      * 构建OAuth2授权请求 [需要client_id与redirect_uri绝对地址]
      * @param request

@@ -44,3 +44,7 @@ http://www.mapdb.org/02-getting-started.html
 Logback
 -------
 http://logback.qos.ch/manual/index.html
+
+##测试 OAuth2
+http://localhost:8080/oauth2/authorize?client_id=fbed1d1b4b1449daa4bc49397cbe2350&response_type=code&redirect_uri=http://baidu.comx
+http://localhost:8080/oauth2/access_token?client_id=fbed1d1b4b1449daa4bc49397cbe2350&client_secret=fbed1d1b4b1449daa4bc49397cbe2350&grant_type=authorization_code&redirect_uri=http://localhost:8080&code={code}
