@@ -1,10 +1,7 @@
 package com.homeinns.web.controller;
-
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
-import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
 import org.apache.oltu.oauth2.as.request.OAuthAuthzRequest;
-import org.apache.oltu.oauth2.as.request.OAuthTokenRequest;
 import org.apache.oltu.oauth2.as.response.OAuthASResponse;
 import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.error.OAuthError;
@@ -23,7 +20,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
- * Authorization 授权验证
+ * Authorization Code 授权码模式
  * Created by Irving on 2014/11/22.
  * Impl OAth2  http://oauth.net/2/
  */
@@ -51,8 +48,15 @@ public class AuthzController {
             out = response.getWriter();
             //获得请求的参数信息
             OAuthAuthzRequest oauthRequest = new OAuthAuthzRequest(request);
+            //验证redirecturl格式是否合法
+            if (oauthRequest.getRedirectURI()==null||!oauthRequest.getRedirectURI().contains("http")) {
+                out.write("oauth2 callback url needs to be provided");
+                out.flush();
+                out.close();
+                return;
+            }
             //验证appkey是否正确
-            if (!validateRedirectionURI(oauthRequest)){
+            if (!validateOAuth2AppKey(oauthRequest)){
                 OAuthResponse oauthResponse = OAuthASResponse
                                               .errorResponse(HttpServletResponse.SC_OK)
                                               .setError(OAuthError.TokenResponse.INVALID_CLIENT)
@@ -72,72 +76,13 @@ public class AuthzController {
                                .buildQueryMessage();
             response.sendRedirect(oauthResponse.getLocationUri());
         } catch(OAuthProblemException ex) {
-            String redirectUri = ex.getRedirectUri();
-            //302地址为空
-            if (redirectUri==null||redirectUri.length()==0) {
-                out.write("oauth2 callback url needs to be provided");
-                out.flush();
-                out.close();
-                return;
-            }
             //处理异常
             final OAuthResponse oauthResponse = OAuthASResponse
                                                 .errorResponse(HttpServletResponse.SC_FOUND)
                                                 .error(ex)
-                                                .location(redirectUri)
+                                                .location(ex.getRedirectUri())
                                                 .buildQueryMessage();
             response.sendRedirect(oauthResponse.getLocationUri());
-        }
-        finally
-        {
-            if (null != out){ out.close();}
-        }
-    }
-
-
-    /**
-     * 获取令牌(AccessToken)
-     * @param request
-     * @param response
-     * @return
-     * @url http://localhost:8080/oauth2/access_token?client_id={AppKey}&client_secret={AppSecret}&grant_type=authorization_code&redirect_uri={YourSiteUrl}&code={code}
-     */
-    @RequestMapping(value = "/access_token",method = RequestMethod.GET)
-    public void access_token(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, OAuthSystemException {
-        PrintWriter out = null;
-        OAuthTokenRequest oauthRequest = null;
-        OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
-        try {
-            out = response.getWriter();
-            oauthRequest = new OAuthTokenRequest(request);
-            //validateClient(oauthRequest);
-            String authzCode = oauthRequest.getCode();
-            // some code
-            String accessToken = oauthIssuerImpl.accessToken();
-            String refreshToken = oauthIssuerImpl.refreshToken();
-            // some code
-
-            OAuthResponse r = OAuthASResponse
-                    .tokenResponse(HttpServletResponse.SC_OK)
-                    .setAccessToken(accessToken)
-                    .setExpiresIn("3600")
-                    .setRefreshToken(refreshToken)
-                    .buildJSONMessage();
-            response.setStatus(r.getResponseStatus());
-            out.print(r.getBody());
-            out.flush();
-            out.close();
-        } catch(OAuthProblemException ex) {
-            OAuthResponse r = OAuthResponse
-                    .errorResponse(401)
-                    .error(ex)
-                    .buildJSONMessage();
-            response.setStatus(r.getResponseStatus());
-            out.print(r.getBody());
-            out.flush();
-            out.close();
-            response.sendError(401);
         }
         finally
         {
@@ -150,7 +95,7 @@ public class AuthzController {
      * @param oauthRequest
      * @return
      */
-    public boolean validateRedirectionURI(OAuthAuthzRequest oauthRequest) {
+    public boolean validateOAuth2AppKey(OAuthAuthzRequest oauthRequest) {
         //客户端Appkey
         ArrayList arrayKeys = new  ArrayList();
         arrayKeys.add("fbed1d1b4b1449daa4bc49397cbe2350");
