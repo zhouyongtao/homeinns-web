@@ -39,6 +39,7 @@
                         ，并同时登录</p>
                     <!-- 登录 -->
                     <div class="oauth_login clearfix">
+                        <input type="hidden" name="action"  id="action" value="login"/>
                         <input type="hidden" name="response_type" value="${response_type}"/>
                         <input type="hidden" name="redirect_uri" value="${redirect_uri}"/>
                         <input type="hidden" name="client_id" value="${client_id}"/>

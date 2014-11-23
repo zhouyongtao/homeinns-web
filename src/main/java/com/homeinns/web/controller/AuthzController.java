@@ -39,7 +39,6 @@ public class AuthzController {
     private Cache cache ;
     @Autowired
     public AuthzController(CacheManager cacheManager) {
-
         this.cache = cacheManager.getCache("oauth2-cache");
     }
      /* *
@@ -84,17 +83,22 @@ public class AuthzController {
             //查询客户端Appkey应用的信息
             String clientName= "Just Test App";//oauthClientService.findByClientId(oauthRequest.getClientId());
             model.addAttribute("clientName",clientName);
+            model.addAttribute("response_type",oauthRequest.getResponseType());
+            model.addAttribute("client_id",oauthRequest.getClientId());
+            model.addAttribute("redirect_uri",oauthRequest.getRedirectURI());
+            model.addAttribute("scope",oauthRequest.getScopes());
             //验证用户是否已登录
             if(session.getAttribute(ConstantKey.MEMBER_SESSION)==null) {
                 //用户登录
                 if(!validateOAuth2Pwd(request)) {
                     //登录失败跳转到登陆页
-                    model.addAttribute("response_type",oauthRequest.getResponseType());
-                    model.addAttribute("client_id",oauthRequest.getClientId());
-                    model.addAttribute("redirect_uri",oauthRequest.getRedirectURI());
-                    model.addAttribute("scope",oauthRequest.getScopes());
                     return "/oauth2/login";
                 }
+            }
+            //判断此次请求是否是用户授权
+            if(request.getParameter("action")==null||!request.getParameter("action").equalsIgnoreCase("authorize")){
+                //到申请用户同意授权页
+                return "/oauth2/authorize";
             }
            //生成授权码 UUIDValueGenerator OR MD5Generator
            String authorizationCode = new OAuthIssuerImpl(new MD5Generator()).authorizationCode();
@@ -106,7 +110,8 @@ public class AuthzController {
                                        .setCode(authorizationCode)
                                        .location(oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI))
                                        .buildQueryMessage();
-           return "/oauth2/authorize";
+           //申请令牌成功重定向到客户端页
+           return "redirect:"+oauthResponse.getLocationUri();
         } catch(OAuthProblemException ex) {
             OAuthResponse oauthResponse = OAuthResponse
                                           .errorResponse(SC_UNAUTHORIZED)
@@ -117,7 +122,6 @@ public class AuthzController {
             return  "/oauth2/error";
         }
     }
-
 
     /**
      * 用户登录
@@ -134,7 +138,7 @@ public class AuthzController {
             return false;
         }
         try {
-            if(name=="Irving"&&pwd=="123456"){
+            if(name.equalsIgnoreCase("Irving")&&pwd.equalsIgnoreCase("123456")){
                 //登录成功
                 request.getSession().setAttribute(ConstantKey.MEMBER_SESSION,"Irving");
                 return true;
@@ -145,7 +149,6 @@ public class AuthzController {
             return false;
         }
     }
-
 
     /**
      * 验证ClientID 是否正确
