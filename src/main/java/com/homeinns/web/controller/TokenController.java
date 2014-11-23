@@ -57,10 +57,10 @@ public class TokenController {
             //验证appkey是否正确
             if (!validateOAuth2AppKey(oauthRequest)){
                 OAuthResponse oauthResponse = OAuthASResponse
-                        .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-                        .setError(OAuthError.TokenResponse.INVALID_CLIENT)
-                        .setErrorDescription("VERIFY_CLIENTID_FAIL")
-                        .buildJSONMessage();
+                                              .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
+                                              .setError(OAuthError.TokenResponse.INVALID_CLIENT)
+                                              .setErrorDescription("VERIFY_CLIENTID_FAIL")
+                                              .buildJSONMessage();
                 out.write(oauthResponse.getBody());
                 out.flush();
                 out.close();
@@ -69,10 +69,10 @@ public class TokenController {
             //验证客户端安全AppSecret是否正确
             if (!validateOAuth2AppSecret(oauthRequest)) {
                 OAuthResponse oauthResponse = OAuthASResponse
-                        .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
-                        .setError(OAuthError.TokenResponse.UNAUTHORIZED_CLIENT)
-                        .setErrorDescription("VERIFY_CLIENT_SECRET_FAIL")
-                        .buildJSONMessage();
+                                              .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
+                                              .setError(OAuthError.TokenResponse.UNAUTHORIZED_CLIENT)
+                                              .setErrorDescription("VERIFY_CLIENT_SECRET_FAIL")
+                                              .buildJSONMessage();
                 out.write(oauthResponse.getBody());
                 out.flush();
                 out.close();
@@ -83,10 +83,10 @@ public class TokenController {
             if (GrantType.AUTHORIZATION_CODE.equals(oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE))) {
                 if (cache.get(authzCode) == null) {
                     OAuthResponse oauthResponse = OAuthASResponse
-                            .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-                            .setError(OAuthError.TokenResponse.INVALID_GRANT)
-                            .setErrorDescription("ERRER_AUTHORIZATION_CODE")
-                            .buildJSONMessage();
+                                                  .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
+                                                  .setError(OAuthError.TokenResponse.INVALID_GRANT)
+                                                  .setErrorDescription("ERRER_AUTHORIZATION_CODE")
+                                                  .buildJSONMessage();
                     out.write(oauthResponse.getBody());
                     out.flush();
                     out.close();
