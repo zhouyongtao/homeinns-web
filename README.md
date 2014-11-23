@@ -47,7 +47,7 @@ http://logback.qos.ch/manual/index.html
 
 ##测试 OAuth2
 ###获得授权码
-http://localhost:8080/oauth2/authorize?client_id=fbed1d1b4b1449daa4bc49397cbe2350&response_type=code&redirect_uri=http://baidu.comx
+http://localhost:8080/oauth2/authorize?client_id=fbed1d1b4b1449daa4bc49397cbe2350&response_type=code&redirect_uri=http://localhost:8080/oauth2/login
 ###获得令牌
 注意： Content-Type:application/x-www-form-urlencoded 与 POST 
 

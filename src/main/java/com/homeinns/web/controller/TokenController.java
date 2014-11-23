@@ -1,4 +1,5 @@
 package com.homeinns.web.controller;
+import com.homeinns.web.common.ConstantKey;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
@@ -93,7 +94,7 @@ public class TokenController {
                     OAuthResponse oauthResponse = OAuthASResponse
                                                   .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
                                                   .setError(OAuthError.TokenResponse.INVALID_GRANT)
-                                                  .setErrorDescription("ERRER_AUTHORIZATION_CODE")
+                                                  .setErrorDescription(ConstantKey.INVALID_CLIENT)
                                                   .buildJSONMessage();
                     out.write(oauthResponse.getBody());
                     out.flush();

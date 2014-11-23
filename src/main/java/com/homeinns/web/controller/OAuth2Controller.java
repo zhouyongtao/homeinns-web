@@ -6,22 +6,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by Irving on 2014/7/6.
+ * OAuth2 用户登录
+ * Created by Irving on 2014/11/23.
  */
 @Controller
-public class LoginController {
+@RequestMapping("/oauth2")
+public class OAuth2Controller {
 
-    private static Logger logger = LoggerFactory.getLogger(HomeController.class);
+    private static Logger logger = LoggerFactory.getLogger(OAuth2Controller.class);
 
     @RequestMapping(value = "/login" ,method = RequestMethod.GET)
-    public String login() {
-        return "login/login";
-    }
-
-    @RequestMapping(value = "/signin" ,method = RequestMethod.POST)
-    public String signIn(String returnUrl) {
-        //获得令牌
-        logger.info("LoginController signIn ");
+    public String login(String code) {
+        logger.info("oauth2 login code : "+code);
         return "oauth2/login";
     }
 }
