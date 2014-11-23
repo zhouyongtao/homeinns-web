@@ -34,7 +34,6 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 @Controller
 @RequestMapping("/oauth2")
 public class AuthzController {
-
     private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
     private Cache cache ;
     @Autowired
@@ -113,11 +112,11 @@ public class AuthzController {
            //申请令牌成功重定向到客户端页
            return "redirect:"+oauthResponse.getLocationUri();
         } catch(OAuthProblemException ex) {
-            logger.error("oauthRequest.getRedirectURI() : " + ex.getRedirectUri() + " oauthResponse.getBody() : " + oauthResponse.getBody());
             OAuthResponse oauthResponse = OAuthResponse
                     .errorResponse(SC_UNAUTHORIZED)
                     .error(ex)
                     .buildJSONMessage();
+            logger.error("oauthRequest.getRedirectURI() : " + ex.getRedirectUri() + " oauthResponse.getBody() : " + oauthResponse.getBody());
             model.addAttribute("errorMsg", oauthResponse.getBody());
             return  "/oauth2/error";
         }
