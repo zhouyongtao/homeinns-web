@@ -13,7 +13,7 @@
 <body>
 <form action="/signin" method="POST">
     客户端</br>
-    <input type="text" name="name" value="irving" /> </br>
+    <input type="text" name="name" value="Irving" /> </br>
     <input type="password" name="pwd" value="123456"/></br>
     <a href="/oauth2/authorize?client_id=fbed1d1b4b1449daa4bc49397cbe2350&response_type=code&redirect_uri=http://localhost:8080">
         OAuth2登录

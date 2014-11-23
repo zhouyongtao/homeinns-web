@@ -9,15 +9,66 @@
 <html>
 <head>
     <title>用户登录</title>
+    <link type="text/css" href="https://api.weibo.com/oauth2/css/oauthV3/oauth_web.css?version=20140625" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"/>
+    <script type="text/javascript">
+    $(function(){
+        $(".WB_btn_login formbtn_01").click(function(){
+            $("#authZForm").submit();
+        });
+    });
+    </script>
 </head>
-<body>
-<form action="/oauth2/login" method="POST">
-    <input type="text" name="name" value="irving" /> </br>
-    <input type="password" name="pwd" value="123456"/></br>
-    <a href="/oauth2/authorize?client_id=fbed1d1b4b1449daa4bc49397cbe2350&response_type=code&redirect_uri=http://localhost:8080/oauth2/login">
-        OAuth2登录
-    </a></br>
-    <input type="submit" value="登录"/>
-</form>
+<body class="WB_UIbody WB_widgets">
+<div class="WB_xline1 oauth_xline" id="outer">
+    <div class="oauth_wrap">
+        <div class="oauth_header clearfix">
+            <!--  <h1 class="WB_logo" title="微博"><a href="http://weibo.com">微博</a></h1>-->
+             <p class="login_account">
+                 <!-- <a href="###" class="special_login_link" node-type="loginswitch">二维码登录</a>-->
+                <span class="vline vline_login">|</span><a class="sign_up_link" href="http://weibo.com/signup/signup.php?from=zw&appsrc=37xdvD&backurl=https%3A%2F%2Fapi.weibo.com%2F2%2Foauth2%2Fauthorize%3Fclient_id%3D1937916757%26response_type%3Dcode%26display%3Ddefault%26redirect_uri%3Dhttp%3A%2F%2Fwww.huazhu.com%2Fthird%2Fweibologin.aspx%26from%3D%26with_cookie%3D" target="_blank">注册</a>
+            </p>
+        </div>
+        <!-- 带头像  -->
+        <div class="WB_panel oauth_main">
+            <form id="authZForm" name="authZForm" action="/oauth2/authorize" method="post" node-type="form">
+                <div class="oauth_content" node-type="commonlogin">
+                    <p class="oauth_main_info">使用你的微博帐号访问  <a href="http://app.weibo.com/t/feed/37xdvD"  target="_blank" class="app_name">${clientName}</a>
+                        ，并同时登录微博</p>
+                    <!-- 登录 -->
+                    <div class="oauth_login clearfix">
+                        <input type="hidden" name="response_type" value="${code}"/>
+                        <input type="hidden" name="redirect_uri" value="${redirect_uri}"/>
+                        <input type="hidden" name="client_id" value="${client_id}"/>
+                        <input type="hidden" name="scope" id="scope" value="${scope}"/>
+                        <div class="oauth_login_form">
+                            <p class="oauth_login_01" >
+                                <label class="oauth_input_label">帐号：</label>
+                                <input type="text" class="WB_iptxt oauth_form_input" id="name" name="name"  value="Irving" autocomplete="off" tabindex="1" />
+                            </p>
+                            <p>
+                                <label class="oauth_input_label">密码：</label>
+                                <input type="password" class="WB_iptxt oauth_form_input" id="pwd" name="pwd" value="123456" autocomplete="off" tabindex="2"/>
+                            </p>
+                        </div>
+                        <!-- </form> -->
+                        <div class="tips WB_tips_yls WB_oauth_tips" node-type="tipBox" style="display:none">
+                            <span class="WB_tipS_err"></span><span class="WB_sp_txt" node-type="tipContent" ></span>
+                            <span class="arr" node-type="tipArrow"></span>
+                            <a href="javascript:;" class="close" node-type="tipClose"></a>
+                        </div>
+                    </div>
+                    <div class="oauth_login_box01 clearfix">
+                        <div class="oauth_login_submit">
+                            <p class="oauth_formbtn"><a node-type="submit" tabindex="4" action-type="submit"  href="javascript:;" class="WB_btn_login formbtn_01"></a><a node-type="cancel" tabindex="5" href="javascript:;" action-type="cancel" class="WB_btn_cancel"></a></p>
+                        </div>
+                        <!-- todo 添加appkey 白名单判断 -->
+                    </div>
+                    <!-- /登录 -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
