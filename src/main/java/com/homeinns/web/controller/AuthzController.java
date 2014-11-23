@@ -19,12 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import static javax.servlet.http.HttpServletResponse.SC_FOUND;
-import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 /**
  * Authorization Code 授权码模式
@@ -60,7 +59,7 @@ public class AuthzController {
             //验证redirecturl格式是否合法 (8080端口测试)
             if (!oauthRequest.getRedirectURI().contains(":8080")&&!Pattern.compile("^[a-zA-Z]+://(\\w+(-\\w+)*)(\\.(\\w+(-\\w+)*))*(\\?\\s*)?$").matcher(oauthRequest.getRedirectURI()).matches()) {
                 OAuthResponse oauthResponse = OAuthASResponse
-                                              .errorResponse(SC_UNAUTHORIZED)
+                                              .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
                                               .setError(OAuthError.CodeResponse.INVALID_REQUEST)
                                               .setErrorDescription(OAuthError.OAUTH_ERROR_URI)
                                               .buildJSONMessage();
@@ -71,7 +70,7 @@ public class AuthzController {
             //验证appkey是否正确
             if (!validateOAuth2AppKey(oauthRequest)){
                 OAuthResponse oauthResponse = OAuthASResponse
-                                              .errorResponse(SC_UNAUTHORIZED)
+                                              .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
                                               .setError(OAuthError.CodeResponse.ACCESS_DENIED)
                                               .setErrorDescription(OAuthError.CodeResponse.UNAUTHORIZED_CLIENT)
                                               .buildJSONMessage();
@@ -105,7 +104,7 @@ public class AuthzController {
            cache.put(authorizationCode,request.getSession(true).getId());
            //构建oauth2授权返回信息
            OAuthResponse oauthResponse = OAuthASResponse
-                                         .authorizationResponse(request, SC_FOUND)
+                                         .authorizationResponse(request,HttpServletResponse.SC_FOUND)
                                          .setCode(authorizationCode)
                                          .location(oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI))
                                          .buildQueryMessage();
@@ -113,7 +112,7 @@ public class AuthzController {
            return "redirect:"+oauthResponse.getLocationUri();
         } catch(OAuthProblemException ex) {
             OAuthResponse oauthResponse = OAuthResponse
-                    .errorResponse(SC_UNAUTHORIZED)
+                    .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
                     .error(ex)
                     .buildJSONMessage();
             logger.error("oauthRequest.getRedirectURI() : " + ex.getRedirectUri() + " oauthResponse.getBody() : " + oauthResponse.getBody());
