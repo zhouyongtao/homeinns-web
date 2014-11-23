@@ -105,10 +105,10 @@ public class AuthzController {
            cache.put(authorizationCode,request.getSession(true).getId());
            //构建oauth2授权返回信息
            OAuthResponse oauthResponse = OAuthASResponse
-                                       .authorizationResponse(request, SC_FOUND)
-                                       .setCode(authorizationCode)
-                                       .location(oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI))
-                                       .buildQueryMessage();
+                                         .authorizationResponse(request, SC_FOUND)
+                                         .setCode(authorizationCode)
+                                         .location(oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI))
+                                         .buildQueryMessage();
            //申请令牌成功重定向到客户端页
            return "redirect:"+oauthResponse.getLocationUri();
         } catch(OAuthProblemException ex) {
