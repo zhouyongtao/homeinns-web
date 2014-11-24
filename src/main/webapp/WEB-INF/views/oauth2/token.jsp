@@ -24,8 +24,7 @@
             <div class="oauth_error_content clearfix">
                 <dl class="error_content">
                     <dt>Token</dt>
-                    <dd>你所访问的站点的accessToken： ${accessToken}<br/>
-                       ${errorMsg}
+                    <dd ${accessToken} ${errorMsg}
                     </dd>
                 </dl>
             </div>
