@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Created by Irving on 2014/11/22.
@@ -52,11 +53,16 @@ public class TokenController {
         OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
         try {
             out = response.getWriter();
-            //构建OAuth请求
+            //构建OAuth2请求
             OAuthTokenRequest oauthRequest = new OAuthTokenRequest(request);
-            //验证redirecturl格式是否合法
-            if (oauthRequest.getRedirectURI()==null||!oauthRequest.getRedirectURI().contains("http")) {
-                out.write(ConstantKey.INVALID_CALLBACK);
+            //验证redirecturl格式是否合法 (8080端口测试)
+            if (!oauthRequest.getRedirectURI().contains(":8080")&&!Pattern.compile("^[a-zA-Z]+://(\\w+(-\\w+)*)(\\.(\\w+(-\\w+)*))*(\\?\\s*)?$").matcher(oauthRequest.getRedirectURI()).matches()) {
+                OAuthResponse oauthResponse = OAuthASResponse
+                                              .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
+                                              .setError(OAuthError.CodeResponse.INVALID_REQUEST)
+                                              .setErrorDescription(OAuthError.OAUTH_ERROR_URI)
+                                              .buildJSONMessage();
+                out.write(oauthResponse.getBody());
                 out.flush();
                 out.close();
                 return;
@@ -64,9 +70,9 @@ public class TokenController {
             //验证appkey是否正确
             if (!validateOAuth2AppKey(oauthRequest)){
                 OAuthResponse oauthResponse = OAuthASResponse
-                                              .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-                                              .setError(OAuthError.TokenResponse.INVALID_CLIENT)
-                                              .setErrorDescription("VERIFY_CLIENTID_FAIL")
+                                              .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
+                                              .setError(OAuthError.CodeResponse.ACCESS_DENIED)
+                                              .setErrorDescription(OAuthError.CodeResponse.UNAUTHORIZED_CLIENT)
                                               .buildJSONMessage();
                 out.write(oauthResponse.getBody());
                 out.flush();
@@ -78,7 +84,7 @@ public class TokenController {
                 OAuthResponse oauthResponse = OAuthASResponse
                                               .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
                                               .setError(OAuthError.TokenResponse.UNAUTHORIZED_CLIENT)
-                                              .setErrorDescription("VERIFY_CLIENT_SECRET_FAIL")
+                                              .setErrorDescription(ConstantKey.INVALID_CLIENT_SECRET)
                                               .buildJSONMessage();
                 out.write(oauthResponse.getBody());
                 out.flush();
@@ -92,7 +98,7 @@ public class TokenController {
                     OAuthResponse oauthResponse = OAuthASResponse
                                                   .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
                                                   .setError(OAuthError.TokenResponse.INVALID_GRANT)
-                                                  .setErrorDescription(ConstantKey.INVALID_CLIENT)
+                                                  .setErrorDescription(ConstantKey.INVALID_CLIENT_GRANT)
                                                   .buildJSONMessage();
                     out.write(oauthResponse.getBody());
                     out.flush();
