@@ -24,7 +24,9 @@
             <div class="oauth_error_content clearfix">
                 <dl class="error_content">
                     <dt>Token</dt>
-                    <dd ${accessToken} ${errorMsg}
+                    <dd>
+                     ${accessToken}
+                     ${errorMsg}
                     </dd>
                 </dl>
             </div>

@@ -33,11 +33,10 @@ public class ClientController {
     public String client() {
         try {
             OAuthClientRequest oauthResponse = OAuthClientRequest
-                                               .tokenLocation(ConstantKey.OAUTH_CLIENT_AUTHORIZE)
-                                               .setGrantType(GrantType.AUTHORIZATION_CODE)
+                                               .authorizationLocation(ConstantKey.OAUTH_CLIENT_AUTHORIZE)
+                                               .setResponseType("code")
                                                .setClientId(ConstantKey.OAUTH_CLIENT_ID)
                                                .setRedirectURI(ConstantKey.OAUTH_CLIENT_REDIRECT)
-                                               .setParameter("response_type", "code")
                                                .buildQueryMessage();
             return "redirect:"+oauthResponse.getLocationUri();
         } catch (OAuthSystemException e) {
