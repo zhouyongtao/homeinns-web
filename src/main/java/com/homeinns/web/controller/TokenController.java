@@ -30,9 +30,7 @@ import java.util.ArrayList;
  */
 @RestController
 @RequestMapping("/oauth2")
-
 public class TokenController {
-
     private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
     private Cache cache ;
     @Autowired
