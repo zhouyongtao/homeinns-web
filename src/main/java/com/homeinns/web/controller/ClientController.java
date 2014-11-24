@@ -1,16 +1,30 @@
 package com.homeinns.web.controller;
-
+import com.homeinns.web.common.ConstantKey;
+import org.apache.oltu.oauth2.client.OAuthClient;
+import org.apache.oltu.oauth2.client.URLConnectionClient;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
+import org.apache.oltu.oauth2.client.response.GitHubTokenResponse;
+import org.apache.oltu.oauth2.client.response.OAuthAuthzResponse;
+import org.apache.oltu.oauth2.client.response.OAuthClientResponse;
+import org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse;
 import org.apache.oltu.oauth2.common.OAuthProviderType;
+import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
+import org.apache.oltu.oauth2.common.message.OAuthResponse;
+import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Created by Irving on 2014/11/24.
+ * OAuth2 客户端实现
  */
 @Controller
 @RequestMapping("/oauth2")
@@ -21,13 +35,15 @@ public class ClientController {
      * 获得授权码
      * @return
      */
-    @RequestMapping(value = "/buildOAuthzReq" ,method = RequestMethod.POST)
-    public String buildOAuthzReq() {
+    @RequestMapping(value = "/client" ,method = RequestMethod.GET)
+    public String client() {
         try {
             OAuthClientRequest oauthResponse = OAuthClientRequest
-                                               .authorizationProvider(OAuthProviderType.FACEBOOK)
-                                               .setClientId("fbed1d1b4b1449daa4bc49397cbe2350")
-                                               .setRedirectURI("http://localhost:8080/getOAuthzToken")
+                                               .tokenLocation(ConstantKey.OAUTH_CLIENT_AUTHORIZE)
+                                               .setGrantType(GrantType.AUTHORIZATION_CODE)
+                                               .setClientId(ConstantKey.OAUTH_CLIENT_ID)
+                                               .setRedirectURI(ConstantKey.OAUTH_CLIENT_REDIRECT)
+                                               .setParameter("response_type", "code")
                                                .buildQueryMessage();
             return "redirect:"+oauthResponse.getLocationUri();
         } catch (OAuthSystemException e) {
@@ -38,12 +54,39 @@ public class ClientController {
 
     /**
      * 获得令牌
-     * @param code
      * @return
      */
-    @RequestMapping(value = "/getOAuthzToken" ,method = RequestMethod.POST)
-    public String oauth2_getToken(String code) {
-        return "oauth2/login";
+    @RequestMapping(value = "/getOAuthzToken" ,method = RequestMethod.GET)
+    public String oauth2_getToken(HttpServletRequest request,Model model) throws OAuthProblemException {
+        OAuthAuthzResponse oauthAuthzResponse = null;
+        try {
+            oauthAuthzResponse = OAuthAuthzResponse.oauthCodeAuthzResponse(request);
+            String code = oauthAuthzResponse.getCode();
+            OAuthClientRequest oauthClientRequest = OAuthClientRequest
+                                                    .tokenLocation(ConstantKey.OAUTH_CLIENT_ACCESS_TOKEN)
+                                                    .setGrantType(GrantType.AUTHORIZATION_CODE)
+                                                    .setClientId(ConstantKey.OAUTH_CLIENT_ID)
+                                                    .setClientSecret(ConstantKey.OAUTH_CLIENT_SECRET)
+                                                    .setRedirectURI(ConstantKey.OAUTH_CLIENT_REDIRECT)
+                                                    .setCode(code)
+                                                    .buildQueryMessage();
+            OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
+            //Facebook is not fully compatible with OAuth 2.0 draft 10, access token response is
+            //application/x-www-form-urlencoded, not json encoded so we use dedicated response class for that
+            //Custom response classes are an easy way to deal with oauth providers that introduce modifications to
+            //OAuth 2.0 specification
+            OAuthJSONAccessTokenResponse oAuthResponse = oAuthClient.accessToken(oauthClientRequest);
+            String accessToken = oAuthResponse.getAccessToken();
+            String refreshToken= oAuthResponse.getRefreshToken();
+            Long expiresIn = oAuthResponse.getExpiresIn();
+            logger.info("accessToken: "+accessToken +" refreshToken: "+refreshToken +" expiresIn: "+expiresIn);
+            model.addAttribute("accessToken",  accessToken);
+            return "oauth2/token";
+        } catch (OAuthSystemException ex) {
+            logger.error("getOAuthzToken OAuthSystemException : " + ex.getMessage());
+            model.addAttribute("errorMsg",  ex.getMessage());
+            return  "/oauth2/error";
+        }
     }
 
     /*
