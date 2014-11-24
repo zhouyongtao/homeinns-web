@@ -153,6 +153,7 @@ public class TokenController {
         return arrayKeys.contains(oauthRequest.getClientId());
     }
 
+
     /**
      * 验证AppSecret 是否正确
      * @param oauthRequest
