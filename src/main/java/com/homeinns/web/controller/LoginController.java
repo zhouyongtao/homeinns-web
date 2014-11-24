@@ -1,4 +1,7 @@
 package com.homeinns.web.controller;
+import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
+import org.apache.oltu.oauth2.common.OAuthProviderType;
+import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,15 +16,13 @@ public class LoginController {
 
     private static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    @RequestMapping(value = "/login" ,method = RequestMethod.GET)
-    public String login() {
+    @RequestMapping(value = "/signin" ,method = RequestMethod.POST)
+    public String signIn(String returnUrl) {
         return "login/login";
     }
 
-    @RequestMapping(value = "/signin" ,method = RequestMethod.POST)
-    public String signIn(String returnUrl) {
-        //获得令牌
-        logger.info("LoginController signIn ");
-        return "oauth2/login";
+    @RequestMapping(value = "/login" ,method = RequestMethod.GET)
+    public String login() {
+        return "login/login";
     }
 }
