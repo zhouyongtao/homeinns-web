@@ -3,14 +3,10 @@ import com.homeinns.web.common.ConstantKey;
 import org.apache.oltu.oauth2.client.OAuthClient;
 import org.apache.oltu.oauth2.client.URLConnectionClient;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
-import org.apache.oltu.oauth2.client.response.GitHubTokenResponse;
 import org.apache.oltu.oauth2.client.response.OAuthAuthzResponse;
-import org.apache.oltu.oauth2.client.response.OAuthClientResponse;
 import org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse;
-import org.apache.oltu.oauth2.common.OAuthProviderType;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
-import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Irving on 2014/11/24.
