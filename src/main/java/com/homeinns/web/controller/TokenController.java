@@ -40,7 +40,7 @@ public class TokenController {
     }
 
     /**
-     * 获取令牌(AccessToken)
+     * 认证服务器申请令牌(AccessToken)
      * @param request
      * @param response
      * @return
