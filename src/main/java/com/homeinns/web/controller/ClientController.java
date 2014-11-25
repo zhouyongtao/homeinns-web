@@ -1,5 +1,4 @@
 package com.homeinns.web.controller;
-
 import com.homeinns.web.common.ConstantKey;
 import org.apache.oltu.oauth2.client.OAuthClient;
 import org.apache.oltu.oauth2.client.URLConnectionClient;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -28,6 +26,13 @@ import javax.servlet.http.HttpServletRequest;
 public class ClientController {
 
     private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
+    /*
+        response_type：表示授权类型，必选项，此处的值固定为"code"
+        client_id：表示客户端的ID，必选项
+        redirect_uri：表示重定向URI，可选项
+        scope：表示申请的权限范围，可选项
+        state：表示客户端的当前状态，可以指定任意值，认证服务器会原封不动地返回这个值
+    */
     /**
      * 获得授权码
      * @return
@@ -40,6 +45,7 @@ public class ClientController {
                                                .setResponseType(OAuth.OAUTH_CODE)
                                                .setClientId(ConstantKey.OAUTH_CLIENT_ID)
                                                .setRedirectURI(ConstantKey.OAUTH_CLIENT_REDIRECT)
+                                               .setScope(ConstantKey.OAUTH_CLIENT_SCOPE)
                                                .buildQueryMessage();
             return "redirect:"+oauthResponse.getLocationUri();
         } catch (OAuthSystemException e) {
@@ -48,6 +54,12 @@ public class ClientController {
         return "redirect:/home";
     }
 
+    /*
+        grant_type：表示使用的授权模式，必选项，此处的值固定为"authorization_code"
+        code：表示上一步获得的授权码，必选项。
+        redirect_uri：表示重定向URI，必选项，且必须与A步骤中的该参数值保持一致
+        client_id：表示客户端ID，必选项
+    */
     /**
      * 获得令牌
      * @return

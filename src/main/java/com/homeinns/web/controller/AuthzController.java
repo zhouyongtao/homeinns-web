@@ -1,5 +1,6 @@
 package com.homeinns.web.controller;
 import com.homeinns.web.common.ConstantKey;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
 import org.apache.oltu.oauth2.as.request.OAuthAuthzRequest;
@@ -44,7 +45,7 @@ public class AuthzController {
      * @param request
      * @param session
      * @param model
-     * @return
+     * @return 返回授权码(code)有效期10分钟，客户端只能使用一次[与client_id和redirect_uri一一对应关系]
      * @throws OAuthSystemException
      * @throws IOException
      * @url  http://localhost:8080/oauth2/authorize?client_id={AppKey}&response_type=code&redirect_uri={YourSiteUrl}
@@ -101,7 +102,7 @@ public class AuthzController {
            //生成授权码 UUIDValueGenerator OR MD5Generator
            String authorizationCode = new OAuthIssuerImpl(new MD5Generator()).authorizationCode();
            //把授权码存入缓存
-           cache.put(authorizationCode,request.getSession(true).getId());
+           cache.put(authorizationCode, DigestUtils.sha1Hex(oauthRequest.getClientId()+oauthRequest.getRedirectURI()));
            //构建oauth2授权返回信息
            OAuthResponse oauthResponse = OAuthASResponse
                                          .authorizationResponse(request,HttpServletResponse.SC_FOUND)
