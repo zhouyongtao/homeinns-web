@@ -49,8 +49,8 @@ public class TokenController {
     @RequestMapping(value = "/access_token",method = RequestMethod.POST)
     public void access_token(HttpServletRequest request, HttpServletResponse response)
             throws IOException, OAuthSystemException {
-        PrintWriter out = null;
-        OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
+            PrintWriter out = null;
+            OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
         try {
             out = response.getWriter();
             //构建oauth2请求
