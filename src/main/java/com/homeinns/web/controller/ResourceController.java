@@ -1,5 +1,6 @@
 package com.homeinns.web.controller;
 import org.apache.oltu.oauth2.as.response.OAuthASResponse;
+import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.error.OAuthError;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
@@ -34,8 +35,8 @@ public class ResourceController {
         this.cache = cacheManager.getCache("oauth2-cache");
     }
 
-    @RequestMapping("/resource")
-    public void resource(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping("/get_resource")
+    public void get_resource(HttpServletRequest request, HttpServletResponse response)
             throws IOException, OAuthSystemException{
         PrintWriter out = null;
         try {
@@ -46,15 +47,13 @@ public class ResourceController {
             String accessToken = oauthRequest.getAccessToken();
             //验证accesstoken是否存在或过期
             if (accessToken.isEmpty()||cache.get(accessToken)== null) {
-                OAuthResponse oauthResponse = OAuthASResponse
+                OAuthResponse oauthResponse = OAuthRSResponse
                                               .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
+                                              .setRealm("RESOURCE_SERVER_NAME")
                                               .setError(OAuthError.ResourceResponse.INVALID_TOKEN)
                                               .setErrorDescription(OAuthError.ResourceResponse.EXPIRED_TOKEN)
-                                              .buildJSONMessage();
-                out.write(oauthResponse.getBody());
-                out.flush();
-                out.close();
-                return;
+                                              .buildHeaderMessage();
+                response.addDateHeader(OAuth.HeaderType.WWW_AUTHENTICATE, Long.parseLong(oauthResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE)));
             }
             //获得用户名
             String userName = "Irving"; //oAuthService.getNameByAccessToken(accessToken);
@@ -63,17 +62,11 @@ public class ResourceController {
             out.close();
         } catch (OAuthProblemException ex) {
             logger.error("ResourceController OAuthProblemException : "+ex.getMessage());
-            //检查是否设置了错误码
-            String errorCode = ex.getError();
-            if (OAuthUtils.isEmpty(errorCode)) {
-                OAuthResponse oauthResponse = OAuthRSResponse
-                                              .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
-                                              .setError(OAuthError.ResourceResponse.INVALID_REQUEST)
-                                              .buildJSONMessage();
-                out.print(oauthResponse.getBody());
-                out.flush();
-                out.close();
-            }
+            OAuthResponse oauthResponse = OAuthRSResponse
+                                          .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
+                                          .setRealm("get_resource exception")
+                                          .buildHeaderMessage();
+            response.addDateHeader(OAuth.HeaderType.WWW_AUTHENTICATE, Long.parseLong(oauthResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE)));
         }
         finally {
             if (null != out){ out.close();}

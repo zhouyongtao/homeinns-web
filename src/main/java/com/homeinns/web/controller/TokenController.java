@@ -93,10 +93,10 @@ public class TokenController {
             }
             String authzCode = oauthRequest.getCode();
             //验证AUTHORIZATION_CODE , 其他的还有PASSWORD 或 REFRESH_TOKEN (考虑到更新令牌的问题，在做修改)
-            if (GrantType.AUTHORIZATION_CODE.equals(oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE))) {
+            if (GrantType.AUTHORIZATION_CODE.name().equalsIgnoreCase(oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE))) {
                 if (cache.get(authzCode) == null) {
                     OAuthResponse oauthResponse = OAuthASResponse
-                                                  .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
+                                                  .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
                                                   .setError(OAuthError.TokenResponse.INVALID_GRANT)
                                                   .setErrorDescription(ConstantKey.INVALID_CLIENT_GRANT)
                                                   .buildJSONMessage();
@@ -106,13 +106,13 @@ public class TokenController {
                     return;
                 }
             }
-            //清除授权码 确保一个code只能使用一次
-            cache.evict(authzCode);
             //生成token
             final String accessToken = oauthIssuerImpl.accessToken();
             cache.put(accessToken,cache.get(authzCode).get());
             String refreshToken = oauthIssuerImpl.refreshToken();
             logger.info("accessToken : "+accessToken +"  refreshToken: "+refreshToken);
+            //清除授权码 确保一个code只能使用一次
+            cache.evict(authzCode);
             //构建oauth2授权返回信息
             OAuthResponse oauthResponse = OAuthASResponse
                                           .tokenResponse(HttpServletResponse.SC_OK)

@@ -2,9 +2,11 @@ package com.homeinns.web.controller;
 import com.homeinns.web.common.ConstantKey;
 import org.apache.oltu.oauth2.client.OAuthClient;
 import org.apache.oltu.oauth2.client.URLConnectionClient;
+import org.apache.oltu.oauth2.client.request.OAuthBearerClientRequest;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
 import org.apache.oltu.oauth2.client.response.OAuthAuthzResponse;
 import org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse;
+import org.apache.oltu.oauth2.client.response.OAuthResourceResponse;
 import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  * OAuth2 客户端实现
  */
 @Controller
-@RequestMapping("/oauth2")
+@RequestMapping("/client")
 public class ClientController {
 
     private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
@@ -37,7 +39,7 @@ public class ClientController {
      * 获得授权码
      * @return
      */
-    @RequestMapping(value = "/client" ,method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String client() {
         try {
             OAuthClientRequest oauthResponse = OAuthClientRequest
@@ -64,8 +66,8 @@ public class ClientController {
      * 获得令牌
      * @return
      */
-    @RequestMapping(value = "/getOAuthzToken" ,method = RequestMethod.GET)
-    public String oauth2_getToken(HttpServletRequest request,Model model) throws OAuthProblemException {
+    @RequestMapping(value = "/getToken" ,method = RequestMethod.GET)
+    public String getToken(HttpServletRequest request,Model model) throws OAuthProblemException {
         OAuthAuthzResponse oauthAuthzResponse = null;
         try {
             oauthAuthzResponse = OAuthAuthzResponse.oauthCodeAuthzResponse(request);
@@ -79,19 +81,27 @@ public class ClientController {
                                                     .setCode(code)
                                                     .buildQueryMessage();
             OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
+
             //Facebook is not fully compatible with OAuth 2.0 draft 10, access token response is
             //application/x-www-form-urlencoded, not json encoded so we use dedicated response class for that
             //Custom response classes are an easy way to deal with oauth providers that introduce modifications to
             //OAuth 2.0 specification
-            OAuthJSONAccessTokenResponse oAuthResponse = oAuthClient.accessToken(oauthClientRequest);
+
+            //获取access token
+            OAuthJSONAccessTokenResponse oAuthResponse = oAuthClient.accessToken(oauthClientRequest, OAuth.HttpMethod.POST);
             String accessToken = oAuthResponse.getAccessToken();
             String refreshToken= oAuthResponse.getRefreshToken();
             Long expiresIn = oAuthResponse.getExpiresIn();
-            logger.info("accessToken: "+accessToken +" refreshToken: "+refreshToken +" expiresIn: "+expiresIn);
-            model.addAttribute("accessToken",  accessToken);
+            //获得资源服务
+            OAuthClientRequest bearerClientRequest = new OAuthBearerClientRequest(ConstantKey.OAUTH_CLIENT_GET_RESOURCE)
+                                                     .setAccessToken(accessToken).buildQueryMessage();
+            OAuthResourceResponse resourceResponse = oAuthClient.resource(bearerClientRequest, OAuth.HttpMethod.GET, OAuthResourceResponse.class);
+            String resBody = resourceResponse.getBody();
+            logger.info("accessToken: "+accessToken +" refreshToken: "+refreshToken +" expiresIn: "+expiresIn +" resBody: "+resBody);
+            model.addAttribute("accessToken",  "accessToken: "+accessToken + " resBody: "+resBody);
             return "oauth2/token";
         } catch (OAuthSystemException ex) {
-            logger.error("getOAuthzToken OAuthSystemException : " + ex.getMessage());
+            logger.error("getToken OAuthSystemException : " + ex.getMessage());
             model.addAttribute("errorMsg",  ex.getMessage());
             return  "/oauth2/error";
         }

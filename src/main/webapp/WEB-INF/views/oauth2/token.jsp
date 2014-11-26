@@ -23,9 +23,10 @@
         <div class="oauth_error">
             <div class="oauth_error_content clearfix">
                 <dl class="error_content">
-                    <dt>Token</dt>
+                    <dt>令牌与资源信息</dt>
                     <dd>
                      ${accessToken}
+                        </br>
                      ${errorMsg}
                     </dd>
                 </dl>
