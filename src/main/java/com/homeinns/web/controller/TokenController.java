@@ -40,7 +40,7 @@ public class TokenController {
     }
 
     /**
-     * 认证服务器申请令牌(AccessToken)
+     * 认证服务器申请令牌(AccessToken) [验证client_id、client_secret、auth code的正确性或更新令牌 refresh_token]
      * @param request
      * @param response
      * @return
@@ -92,7 +92,7 @@ public class TokenController {
                 return;
             }
             String authzCode = oauthRequest.getCode();
-            //验证AUTHORIZATION_CODE , 其他的还有PASSWORD或REFRESH_TOKEN
+            //验证AUTHORIZATION_CODE , 其他的还有PASSWORD 或 REFRESH_TOKEN (考虑到更新令牌的问题，在做修改)
             if (GrantType.AUTHORIZATION_CODE.equals(oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE))) {
                 if (cache.get(authzCode) == null) {
                     OAuthResponse oauthResponse = OAuthASResponse
