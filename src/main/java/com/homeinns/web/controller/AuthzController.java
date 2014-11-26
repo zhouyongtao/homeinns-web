@@ -113,9 +113,9 @@ public class AuthzController {
            return "redirect:"+oauthResponse.getLocationUri();
         } catch(OAuthProblemException ex) {
             OAuthResponse oauthResponse = OAuthResponse
-                    .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
-                    .error(ex)
-                    .buildJSONMessage();
+                                          .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
+                                          .error(ex)
+                                          .buildJSONMessage();
             logger.error("oauthRequest.getRedirectURI() : " + ex.getRedirectUri() + " oauthResponse.getBody() : " + oauthResponse.getBody());
             model.addAttribute("errorMsg", oauthResponse.getBody());
             return  "/oauth2/error";

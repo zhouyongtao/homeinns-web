@@ -53,7 +53,7 @@ public class TokenController {
         OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
         try {
             out = response.getWriter();
-            //构建OAuth2请求
+            //构建oauth2请求
             OAuthTokenRequest oauthRequest = new OAuthTokenRequest(request);
             //验证redirecturl格式是否合法 (8080端口测试)
             if (!oauthRequest.getRedirectURI().contains(":8080")&&!Pattern.compile("^[a-zA-Z]+://(\\w+(-\\w+)*)(\\.(\\w+(-\\w+)*))*(\\?\\s*)?$").matcher(oauthRequest.getRedirectURI()).matches()) {
@@ -106,6 +106,8 @@ public class TokenController {
                     return;
                 }
             }
+            //清除授权码 确保一个code只能使用一次
+            cache.evict(authzCode);
             //生成token
             final String accessToken = oauthIssuerImpl.accessToken();
             cache.put(accessToken,cache.get(authzCode).get());
@@ -113,20 +115,20 @@ public class TokenController {
             logger.info("accessToken : "+accessToken +"  refreshToken: "+refreshToken);
             //构建oauth2授权返回信息
             OAuthResponse oauthResponse = OAuthASResponse
-                    .tokenResponse(HttpServletResponse.SC_OK)
-                    .setAccessToken(accessToken)
-                    .setExpiresIn("3600")
-                    .setRefreshToken(refreshToken)
-                    .buildJSONMessage();
+                                          .tokenResponse(HttpServletResponse.SC_OK)
+                                          .setAccessToken(accessToken)
+                                          .setExpiresIn("3600")
+                                          .setRefreshToken(refreshToken)
+                                          .buildJSONMessage();
             response.setStatus(oauthResponse.getResponseStatus());
             out.print(oauthResponse.getBody());
             out.flush();
             out.close();
         } catch(OAuthProblemException ex) {
             OAuthResponse oauthResponse = OAuthResponse
-                    .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
-                    .error(ex)
-                    .buildJSONMessage();
+                                          .errorResponse(HttpServletResponse.SC_UNAUTHORIZED)
+                                          .error(ex)
+                                          .buildJSONMessage();
             response.setStatus(oauthResponse.getResponseStatus());
             out.print(oauthResponse.getBody());
             out.flush();
