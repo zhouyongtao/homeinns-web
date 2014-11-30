@@ -46,7 +46,7 @@ public class ClientController {
                                                .authorizationLocation(ConstantKey.OAUTH_CLIENT_AUTHORIZE)
                                                .setResponseType(OAuth.OAUTH_CODE)
                                                .setClientId(ConstantKey.OAUTH_CLIENT_ID)
-                                               .setRedirectURI(ConstantKey.OAUTH_CLIENT_REDIRECT)
+                                               .setRedirectURI(ConstantKey.OAUTH_CLIENT_CALLBACK)
                                                .setScope(ConstantKey.OAUTH_CLIENT_SCOPE)
                                                .buildQueryMessage();
             return "redirect:"+oauthResponse.getLocationUri();
@@ -64,9 +64,9 @@ public class ClientController {
     */
     /**
      * 获得令牌
-     * @return
+     * @return oauth_callback?code=1234
      */
-    @RequestMapping(value = "/getToken" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/oauth_callback" ,method = RequestMethod.GET)
     public String getToken(HttpServletRequest request,Model model) throws OAuthProblemException {
         OAuthAuthzResponse oauthAuthzResponse = null;
         try {
@@ -77,7 +77,7 @@ public class ClientController {
                                                     .setGrantType(GrantType.AUTHORIZATION_CODE)
                                                     .setClientId(ConstantKey.OAUTH_CLIENT_ID)
                                                     .setClientSecret(ConstantKey.OAUTH_CLIENT_SECRET)
-                                                    .setRedirectURI(ConstantKey.OAUTH_CLIENT_REDIRECT)
+                                                    .setRedirectURI(ConstantKey.OAUTH_CLIENT_CALLBACK)
                                                     .setCode(code)
                                                     .buildQueryMessage();
             OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());

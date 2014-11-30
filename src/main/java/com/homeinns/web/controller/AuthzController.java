@@ -87,7 +87,7 @@ public class AuthzController {
             model.addAttribute("redirect_uri",oauthRequest.getRedirectURI());
             model.addAttribute("scope",oauthRequest.getScopes());
             //验证用户是否已登录
-            if(session.getAttribute(ConstantKey.MEMBER_SESSION)==null) {
+            if(session.getAttribute(ConstantKey.MEMBER_SESSION_KEY)==null) {
                 //用户登录
                 if(!validateOAuth2Pwd(request)) {
                     //登录失败跳转到登陆页
@@ -139,7 +139,7 @@ public class AuthzController {
         try {
             if(name.equalsIgnoreCase("Irving")&&pwd.equalsIgnoreCase("123456")){
                 //登录成功
-                request.getSession().setAttribute(ConstantKey.MEMBER_SESSION,"Irving");
+                request.getSession().setAttribute(ConstantKey.MEMBER_SESSION_KEY,"Irving");
                 return true;
             }
             return false;
