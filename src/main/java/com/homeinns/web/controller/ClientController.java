@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/client")
 public class ClientController {
 
-    private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
+    private static Logger logger = LoggerFactory.getLogger(ClientController.class);
     /*
         response_type：表示授权类型，必选项，此处的值固定为"code"
         client_id：表示客户端的ID，必选项

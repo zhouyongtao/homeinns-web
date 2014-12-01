@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/oauth2")
 public class TokenController {
-    private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
+    private static Logger logger = LoggerFactory.getLogger(TokenController.class);
     private Cache cache ;
     @Autowired
     public TokenController(CacheManager cacheManager) {
