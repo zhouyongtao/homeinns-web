@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 @RequestMapping("/oauth2")
 public class AuthzController {
     private static Logger logger = LoggerFactory.getLogger(AuthzController.class);
-    private Cache cache ;
+    private Cache cache;
     @Autowired
     public AuthzController(CacheManager cacheManager) {
         this.cache = cacheManager.getCache("oauth2-cache");
