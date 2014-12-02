@@ -49,7 +49,7 @@ public class AuthzController {
      * @throws OAuthSystemException
      * @throws IOException
      * @url  http://localhost:8080/oauth2/authorize?client_id={AppKey}&response_type=code&redirect_uri={YourSiteUrl}
-     * @test http://localhost:8080/oauth2/authorize?client_id=fbed1d1b4b1449daa4bc49397cbe2350&response_type=code&redirect_uri=http://baidu.comx
+     * @test http://localhost:8080/oauth2/authorize?client_id=fbed1d1b4b1449daa4bc49397cbe2350&response_type=code&redirect_uri=http://localhost:8080/client/oauth_callback
      */
     @RequestMapping(value = "/authorize")
     public String authorize(HttpServletRequest request,HttpSession session,Model model)
