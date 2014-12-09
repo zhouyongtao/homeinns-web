@@ -14,7 +14,8 @@ homeinns-web
 #文档
 Maven
 -----
-http://mvnrepository.com/
+http://mvnrepository.com/<br/>
+http://search.maven.org/
 Spring
 ------
 http://projects.spring.io/spring-framework/<br/>

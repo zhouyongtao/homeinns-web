@@ -70,6 +70,22 @@
           <artifactId>spring-test</artifactId>
           <version>4.0.5.RELEASE</version>
       </dependency>
+      <!---cxf-->
+      <dependency>
+          <groupId>org.apache.cxf</groupId>
+          <artifactId>cxf-rt-frontend-jaxws</artifactId>
+          <version>3.0.3</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.cxf</groupId>
+          <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+          <version>3.0.3</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.cxf</groupId>
+          <artifactId>cxf-rt-ws-security</artifactId>
+          <version>3.0.3</version>
+      </dependency>
       <!--mysql-->
       <dependency>
           <groupId>mysql</groupId>
@@ -145,12 +161,13 @@
           <version>1.0.0</version>
       </dependency>
       -->
-      <!-- scala-->
+      <!-- scala
       <dependency>
           <groupId>org.scala-lang</groupId>
           <artifactId>scala-library</artifactId>
           <version>2.11.2</version>
       </dependency>
+      -->
       <!-- netty-->
       <dependency>
           <groupId>io.netty</groupId>
