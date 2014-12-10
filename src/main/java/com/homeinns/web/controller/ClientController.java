@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Irving on 2014/11/24.
  * OAuth2 客户端实现
  */
-@RestController
+@Controller
 @RequestMapping("/client")
 public class ClientController {
 
