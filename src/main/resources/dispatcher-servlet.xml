@@ -35,13 +35,13 @@
     <context:component-scan base-package="com.homeinns.web.service.impl"/>
     <context:component-scan base-package="com.homeinns.web.dao.impl"/>
     <context:component-scan base-package="com.homeinns.web.scheduled"/>
-
-    <!-- 缓存对象
-    <bean id="cacheAdmin"
-          class="com.opensymphony.oscache.general.GeneralCacheAdministrator"
-          destroy-method="destroy">
-    </bean>
-    -->
+    <context:component-scan base-package="com.homeinns.web.cxf.impl"/>
+ <!-- 缓存对象
+ <bean id="cacheAdmin"
+       class="com.opensymphony.oscache.general.GeneralCacheAdministrator"
+       destroy-method="destroy">
+ </bean>
+ -->
     <!-- 对静态资源文件的访问  方案二 （二选一）
     <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
