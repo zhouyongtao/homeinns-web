@@ -28,10 +28,7 @@
         </jaxws:outInterceptors>
     </jaxws:server>
     -->
-    <jaxws:server address="/helloService" serviceClass="com.homeinns.web.cxf.IHelloService">
-        <jaxws:serviceBean>
-            <bean class="com.homeinns.web.cxf.impl.HelloServiceImpl"></bean>
-        </jaxws:serviceBean>
+    <jaxws:server address="/helloService" serviceClass="com.homeinns.web.cxf.IHelloService" serviceBean="com.homeinns.web.cxf.impl.HelloServiceImpl">
         <!-- 定义拦截器 -->
         <jaxws:inInterceptors>
             <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"></bean>
