@@ -15,20 +15,20 @@
     <!-- 引入CXF Bean定义-->
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-    <!-- 发布服务
-    <jaxws:server id="helloService" address="/helloService">
-        <jaxws:serviceBean>
-            <ref bean="helloServiceImpl"/>
-        </jaxws:serviceBean>
+    <!-- 发布服务-->
+    <jaxws:endpoint address="/hello" implementor="com.homeinns.web.cxf.impl.HelloServiceImpl">
         <jaxws:inInterceptors>
             <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"></bean>
         </jaxws:inInterceptors>
         <jaxws:outInterceptors>
             <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"></bean>
         </jaxws:outInterceptors>
-    </jaxws:server>
-    -->
-    <jaxws:server address="/helloService" serviceClass="com.homeinns.web.cxf.IHelloService" serviceBean="com.homeinns.web.cxf.impl.HelloServiceImpl">
+    </jaxws:endpoint>
+    <!-- 发布服务 -->
+    <jaxws:server address="/helloService">
+        <jaxws:serviceBean>
+            <bean class="com.homeinns.web.cxf.impl.HelloServiceImpl"></bean>
+        </jaxws:serviceBean>
         <!-- 定义拦截器 -->
         <jaxws:inInterceptors>
             <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"></bean>
