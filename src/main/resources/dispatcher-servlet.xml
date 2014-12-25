@@ -26,7 +26,7 @@
 
     <!-- 以下配置这一条代码就可以访问在其目录下的任何JS ,CSS,图片等文件了 -->
     <mvc:resources location="/content/" mapping="/content/**" cache-period="31556926"/>
-
+    <mvc:resources mapping="/static/**" location="/static/"/>
     <!-- 配置JSP视图解析  -->
     <bean id="jspView" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp" p:order="1" />
 
