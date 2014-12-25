@@ -72,11 +72,10 @@
         <property name="mapperLocations" value="classpath*:/mappers/**/*.xml" />
     </bean>
 
-    <!-- configured sqlSessionFactory bean-->
+    <!-- configured sqlSessionFactory bean scope="prototype" 慎用-->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory"/>
+        <constructor-arg ref="sqlSessionFactory" />
     </bean>
-
     <!-- scan for mappers and let them be autowired
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.homeinns.web.entity" />
