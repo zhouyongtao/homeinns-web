@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestfulController {
 
     @RequestMapping(method = RequestMethod.GET)
+    //@JsonView(User.WithoutPasswordView.class)
     public String test() {
         return "just rest test!";
     }
