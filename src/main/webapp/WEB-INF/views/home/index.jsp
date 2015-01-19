@@ -12,6 +12,6 @@
     <script type="text/javascript" src="../content/DD_belatedPNG_0.0.8a.js"></script>
 </head>
 <body>
-我是首页 O(∩_∩)O~~  哈哈哈哈 ！！！
+<a href="/"> 我是首页 </a> O(∩_∩)O~~  哈哈哈哈 ！！！
 </body>
 </html>
